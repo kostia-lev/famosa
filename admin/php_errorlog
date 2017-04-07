@@ -1,0 +1,9 @@
+[17-Feb-2017 15:39:19 CST6CDT] PHP Parse error:  syntax error, unexpected '.' in /home/alessi74/remax-famosa.it/admin/prop.php on line 91
+[17-Feb-2017 15:40:14 CST6CDT] PHP Parse error:  syntax error, unexpected '$disp' (T_VARIABLE) in /home/alessi74/remax-famosa.it/admin/prop.php on line 92
+[17-Feb-2017 15:40:16 CST6CDT] PHP Parse error:  syntax error, unexpected '$disp' (T_VARIABLE) in /home/alessi74/remax-famosa.it/admin/prop.php on line 92
+[17-Feb-2017 16:20:35 CST6CDT] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/alessi74/remax-famosa.it/admin/location.php on line 68
+[17-Feb-2017 16:43:02 CST6CDT] PHP Parse error:  syntax error, unexpected '}' in /home/alessi74/remax-famosa.it/admin/locationupd.php on line 36
+[18-Feb-2017 14:10:00 CST6CDT] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/alessi74/remax-famosa.it/admin/location.php on line 115
+[18-Feb-2017 14:10:09 CST6CDT] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/alessi74/remax-famosa.it/admin/location.php on line 115
+[18-Feb-2017 14:10:11 CST6CDT] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/alessi74/remax-famosa.it/admin/location.php on line 115
+[23-Feb-2017 16:55:32 CST6CDT] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/alessi74/remax-famosa.it/admin/urlgenerator.php on line 121

@@ -1,0 +1,39 @@
+<div style="border:solid 1px thin;" width="100%;">
+	<table><tr>
+		<!--<td width="10%"><img src="tcpdf/images/logo.png" bgcolor="yellow"></td>-->
+		<td style="font-size:50px;text-align:center;" width="90%">RUKASRI PROMOTERS<br/>
+		No.31, Door No.5, First floor, Kamarajar Street, Kanchipuram - 631 501<br/>E-mail: info@rukasripromoters.com | www.rukasripromoters.com<br/>Phone: 044 - 2722 7227, Mobile: 9080358528, 9843381103</td>
+	</tr></table>
+	<hr style="margin:-10px;">
+	<table cellpadding="2" cellspacing="2" width="100%" >
+		<tr><td><b>CUSTOMER DETAILS</b></td></tr>
+		<tr><td>Name :{{cust_name}}</td></tr>
+		<tr><td>Mobile : {{cust_mobile_1}} {{cust_mobile_2}}</td></tr>
+		<tr><td>Email ID : {{cust_email}}</td></tr>
+		<tr><td>Address : {{cust_address}}</td></tr>
+	</table>
+	<table cellpadding="2" cellspacing="2" width="100%" >
+		<tr><td><b>PLOT DETAILS</b></td></tr>
+		<tr><td>Area : {{area}}</td></tr>
+		<tr><td>Name :{{name}}</td></tr>
+		<tr><td>Square Feet : {{plat_sqpt}}</td></tr>
+		<tr><td>Total Amount : {{total_amount}}</td></tr>
+	</table>
+	<hr style="margin:-20px;"><br/>
+	<table border="1"  cellpadding="5" cellspacing="0" width="100%">
+		<tr>
+			<td align="center">Invoice No</td>
+			<td align="center">DATE</td>
+			<td align="center">PAYMENT MODE</td>
+			<td align="center">PAID AMOUNT</td>
+			<td align="center">BALANCE AMOUNT</td>
+		</tr>
+		{{DispDetails}}
+	</table>
+	<table cellpadding="0" cellspacing="0" width="100%">
+		<tr><td><br/><br/><br/><br/></td></tr>
+	</table>
+	<table cellpadding="0" cellspacing="0" width="100%">
+		<tr><td align="left">Date:{{CnrtDate}}</td><td align="center">Director</td></tr>
+	</table>
+</div>

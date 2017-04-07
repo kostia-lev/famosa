@@ -1,0 +1,8 @@
+[14-Mar-2017 09:36:41 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/alessi74/remax-famosa.it/property-detail.php on line 70
+[14-Mar-2017 09:37:45 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/alessi74/remax-famosa.it/property-detail.php on line 70
+[14-Mar-2017 10:03:57 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home/alessi74/remax-famosa.it/property-detail.php on line 164
+[22-Mar-2017 04:38:49 America/Chicago] PHP Fatal error:  Class 'Setting' not found in /home/alessi74/remax-famosa.it/property_add.php on line 6
+[22-Mar-2017 04:38:56 America/Chicago] PHP Fatal error:  Class 'Setting' not found in /home/alessi74/remax-famosa.it/property_add.php on line 6
+[22-Mar-2017 04:38:57 America/Chicago] PHP Fatal error:  Class 'Setting' not found in /home/alessi74/remax-famosa.it/property_add.php on line 6
+[03-Apr-2017 16:56:40 America/Chicago] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in /home/alessi74/remax-famosa.it/my-account.php on line 17
+[03-Apr-2017 17:24:37 America/Chicago] PHP Parse error:  syntax error, unexpected ')', expecting ';' in /home/alessi74/remax-famosa.it/my-account.php on line 38
