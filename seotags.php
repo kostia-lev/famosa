@@ -127,7 +127,7 @@ if(isset($seoset['tag_title']) && isset($seoset['tag_description']) && isset($se
     ";
     echo "<meta property='og:site_name' content='" . $generalset['website_title'] . "' />
     ";
-    echo "<meta property='article:publisher' content='https://www.facebook.com/" . $generalset['og_site'] . "' />
+    echo "<meta property='article:publisher' content='https://www.facebook.com/" . ($generalset['og_site'] ?? '') . "' />
     ";
     echo "<meta property='og:image' content='" . $siteurl . "/assets/images/logo.png' />
     ";

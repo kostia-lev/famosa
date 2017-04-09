@@ -26,13 +26,14 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
 	return $sql . " LIMIT $offset, $itemPerPage";	
 }
 function getPagingLink1($sql, $itemPerPage = 20,$strGet){
+    global $db;
 	$first=isset($first)?$first:'';
 	$prev=isset($prev)?$prev:'';
 	$next=isset($next)?$next:'';
 	$last=isset($last)?$last:'';
-	$result        = mysql_query($sql) or  die(mysql_error());
+	$result        = mysqli_query($db->getDbh(), $sql) or  die(mysqli_error($db->getDdh()));
 	$pagingLink    = '';
-	$totalResults  = mysql_num_rows($result);	
+	$totalResults  = mysqli_num_rows($result);
 	$totalPages    = ceil($totalResults / $itemPerPage);
 	// how many link pages to show
 	$numLinks      = 4;

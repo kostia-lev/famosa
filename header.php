@@ -293,12 +293,12 @@ $(document).ready(function(){
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-left">
-              <li class="menu-li-list-2"><a  href="<? echo $siteurl; ?>/">Home</a></li>
-              <li class="menu-li-list"><a  href="<? echo $siteurl; ?>/type/residenziale">Residenziale</a></li>
-              <li class="menu-li-list"><a  href="<? echo $siteurl; ?>/type/commerciale">Commerciale</a></li>
-              <li class="menu-li-list"><a  href="<? echo $siteurl; ?>/type/immobili-di-lusso">Immobili di lusso</a></li>
-              <li class="menu-li-list"><a  href="<? echo $siteurl; ?>/type/nuove-costruzioni">Nuove costruzioni</a></li>
-              <li class="menu-li-list"><a href="<? echo $siteurl; ?>/type/asta">Immobili all'asta</a></li>
+              <li class="menu-li-list-2"><a  href="/">Home</a></li>
+              <li class="menu-li-list"><a  href="/type/residenziale">Residenziale</a></li>
+              <li class="menu-li-list"><a  href="/type/commerciale">Commerciale</a></li>
+              <li class="menu-li-list"><a  href="/type/immobili-di-lusso">Immobili di lusso</a></li>
+              <li class="menu-li-list"><a  href="/type/nuove-costruzioni">Nuove costruzioni</a></li>
+              <li class="menu-li-list"><a href="/type/asta">Immobili all'asta</a></li>
           </ul>
 
         </div><!-- /.navbar-collapse -->

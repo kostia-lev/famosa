@@ -13,8 +13,8 @@ include "mapapi.php";
             <?php
             if($types != null){ echo "di tipo " . strtoupper(str_replace("-", " ", $types)); }
             else if($cat != null){ echo "della categoria " . strtoupper(str_replace("-", " ", $cat)); }
-            if($loc != null){ echo " a " . strtoupper(str_replace("-", " ", $loc)); }
-            if($propfor != null){ echo " in " . $propfor; }
+            if(!empty($loc)){ echo " a " . strtoupper(str_replace("-", " ", $loc)); }
+            if(!empty($propfor)){ echo " in " . $propfor; }
 
             ?>
         </span>
@@ -24,6 +24,7 @@ include "mapapi.php";
     </div>
 	<div class="col-md-9 col-sm-12 col-xs-12 row">
 			<?
+            $color = ($color ?? '');
 			$result=$db->get_all($que . $limit);
 			if(count($result)<1) {
 				echo "<br>Nessun immobile trovato con le caratteristiche selezionate!";
@@ -68,7 +69,7 @@ include "mapapi.php";
                          </div><!--price col-md-12-->
                        <div class="col-md-12 col-sm-12 col-xs-12">
 						 <?
-						    if($row['email']!=$_SESSION['usr']) {
+						    if($row['email']!=($_SESSION['usr'] ?? null)) {
 						    	$_SESSION['tomail']=$row['email'];
 						    	echo '<div class="col-md-6 col-sm-6 col-xs-6 text-left pdt10 pdl40 mb5">
                                 <a href="javascript:;" data-toggle="modal" data-target="#contact-agent"><input type="button" class="btn btn-view-detail"  value="Contatta"></a>

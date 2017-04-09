@@ -81,11 +81,11 @@ $agency=$db->singlerec("select * from general_setting where id='1'");
             <div class="carousel-inner">
                 <div class="item active">
 				<?
-				$res=mysql_query("select * from listing_images where pid='".$prop['id']."' order by id limit 25");
-				$row_count=mysql_num_rows($res);
+				$res=mysqli_query($db->getDbh(), "select * from listing_images where pid='".$prop['id']."' order by id limit 25");
+				$row_count=mysqli_num_rows($res);
 					if($row_count>=1) {
 						$i=0;
-						while($row=mysql_fetch_assoc($res)) {
+						while($row=mysqli_fetch_assoc($res)) {
 				?>
 					<div data-target="#carousel" data-slide-to="<? echo $i; ?>" class="thumb"><img src="<? echo $siteurl;   ?>/images/prop/230_144/<? echo $row['image']; ?>"></div>
 				<?
@@ -1115,7 +1115,7 @@ $agency=$db->singlerec("select * from general_setting where id='1'");
                   <p>La classe di Rendimento Energetico è un indice delle performance termiche che indica i livelli di riscaldamento e raffrescamento richiesti in inverno ed in estate.<br>Gli immobili di classe A o B garantiscono maggior comfort e sono i più efficienti in termini di consumi di energia.</p>
                   </div>
               </div>
-              <?php if($prop['actual_morgage'] != null || $prop['balance_difference'] != null || $prop['rate_type'] != null || $prop['remain_loan'] != null || $prop['remain_years'] != null || $prop['periodicity_installment'] != null || $prop['payment'] != null || $prop['bank'] != null){ ?>
+              <?php if(!empty($prop['actual_morgage']) || $prop['balance_difference'] != null || $prop['rate_type'] != null || $prop['remain_loan'] != null || $prop['remain_years'] != null || $prop['periodicity_installment'] != null || $prop['payment'] != null || $prop['bank'] != null){ ?>
                   <div class="row related-property-fnt">
                       Mutuo sull'immobile
                   </div>
@@ -1162,7 +1162,7 @@ $agency=$db->singlerec("select * from general_setting where id='1'");
              <p class="property-detail-page-agent-info-font"><? echo $agent['fullname']; ?></p>
              <p class="property-detail-page-agent-info-font"><i class="fa fa-phone" aria-hidden="true"></i> <? echo $agent['mobile']; ?></p>
 			 <?
-			 if($agent['email']!=$_SESSION['usr']) {
+			 if($agent['email']!=($_SESSION['usr']?? null)) {
 					$_SESSION['tomail']=$agent['email'];
                     $_SESSION['agent_randuniq']=$agent['randuniq'];
                     $_SESSION['prop_randuniq']=$prop['randuniq'];

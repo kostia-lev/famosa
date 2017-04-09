@@ -148,12 +148,12 @@ include "mapapi.php";
 								foreach($result as $key => $row) {
 
                                         //Colors flags
+                                        $ccount = $ccount ?? null;
                                         $ccount++;
                                         if($ccount==1){ $color="#4083cc"; }
                                         else if($ccount==2){ $color="#509630"; }
                                         else if($ccount==3){ $color="#d9001a"; }
                                         else { $color="#f2bb3d"; }
-
                                         if($ccount == 4){ $ccount = 0; }
 
 										$im=$db->singlerec("select * from listing_images where pid='".$row['id']."' order by id limit 1");

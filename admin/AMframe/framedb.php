@@ -1,32 +1,54 @@
 <?php
-error_reporting(0);
+if( strpos($_SERVER['SERVER_NAME'], 'remax.local') === false)
+    error_reporting(0);
 session_name("_prd");
 session_start();
 
-class database{	
-		function database(){
-			$host    = "localhost";
+class database{
+        /*db connection link*/
+        private $dbh;
+
+        /**
+         * @return mysqli
+         */
+        public function getDbh(): mysqli
+        {
+            return $this->dbh;
+        }
+
+        /**
+         * @param mysqli $dbh
+         * @return database
+         */
+        public function setDbh(mysqli $dbh): database
+        {
+            $this->dbh = $dbh;
+            return $this;
+        }
+
+		function __construct(){
+			/*$host    = "localhost";
 			$dbuser  = "alessi74_rfamosa";
 			$dbpass  = "ziLgAL1yQUoZ";
 			$dbname  = "alessi74_rfamosa45";
-			$dbh = mysql_connect($host,$dbuser,$dbpass);
-			mysql_select_db($dbname);
-			return $dbh;
+			$dbh = mysqli_connect($host,$dbuser,$dbpass);
+			mysqli_select_db($dbname);
+
+			return $dbh;*/
 			
-			/* $host    = "localhost";
-			$dbuser  = "getcover_jose";
-			$dbpass  = "jose@#123";
-			$dbname  = "getcover_josephin";
-			$dbh = mysql_connect($host,$dbuser,$dbpass);
-			mysql_select_db($dbname);
-			return $dbh; */
+            $host    = "localhost";
+			$dbuser  = "root";
+			$dbpass  = "root";
+			$dbname  = "remax";
+			$this->dbh = mysqli_connect($host,$dbuser,$dbpass, $dbname);
+			return $this->dbh;
 		}
   //======================================================================================
 		function insertrec($query){
 			
-			if(!mysql_query("$query")){
-			$err1 = mysql_errno();
-			$err2 = mysql_error();
+			if(!mysqli_query($this->dbh, "$query")){
+			$err1 = mysqli_errno($this->dbh);
+			$err2 = mysqli_error($this->dbh);
 			echo "$err1 $err2";
 			exit;			
 			}
@@ -35,14 +57,14 @@ class database{
   //======================================================================================		
 		function singlerec($query){
 		{
-        if (! ($result = mysql_query("$query"))) {
-            $err1 = mysql_errno();
-            $err2 = mysql_error();
+        if (! ($result = mysqli_query($this->dbh, "$query"))) {
+            $err1 = mysqli_errno($this->dbh);
+            $err2 = mysqli_error($this->dbh);
             echo ("$query  $err1 $err2");
             exit;
         }
-        $rw = mysql_fetch_array ($result);
-        mysql_free_result ($result);
+        $rw = mysqli_fetch_array ($result);
+        mysqli_free_result ($result);
         return $rw;
 		}
 		}
@@ -50,24 +72,24 @@ class database{
   //======================================================================================				
 		function singleasso($query){
 		{
-        if (! ($result = mysql_query("$query"))) {
-            $err1 = mysql_errno();
-            $err2 = mysql_error();
+        if (! ($result = mysqli_query($this->dbh, "$query"))) {
+            $err1 = mysqli_errno($this->dbh);
+            $err2 = mysqli_error($this->dbh);
             echo ("$query  $err1 $err2");
             exit;
         }
         $rw = mysql_fetch_assoc($result);
-        mysql_free_result ($result);
+        mysqli_free_result ($result);
         return $rw;
 		}
 		}
 		
   //======================================================================================
 		function get_all($query){
-			$rst = mysql_query("$query");
+			$rst = mysqli_query($this->dbh, "$query");
 			$result = array();
 			$x=0;
-			while($row=mysql_fetch_array($rst)){
+			while($row=mysqli_fetch_array($rst)){
 				$result[$x] = $row;
 				$x++;
 				}				
@@ -75,7 +97,7 @@ class database{
 			}
   //======================================================================================
 		function get_all_assoc($query){
-			$rst = mysql_query("$query");
+			$rst = mysqli_query($this->dbh, "$query");
 			$result = array();
 			$x=0;
 			while($row=mysql_fetch_assoc($rst)){
@@ -86,9 +108,9 @@ class database{
 			}
   //======================================================================================
 		function insertid($query) {
-        if (!mysql_query ("$query")) {
-            $err1 = mysql_errno();
-            $err2 = mysql_error();
+        if (!mysqli_query($this->dbh, "$query")) {
+            $err1 = mysqli_errno($this->dbh);
+            $err2 = mysqli_error($this->dbh);
             echo ("<h4>$query  $err1 $err2</h4>");
             exit;
         }
@@ -98,38 +120,38 @@ class database{
   //======================================================================================	
   function singlecolumn ($mysql) {
         $x = 0;
-        $result = mysql_query($mysql);
+        $result = mysqli_query($this->dbh, $mysql);
         $q = array() ;
-        while ($row = mysql_fetch_array ($result) ) {
+        while ($row = mysqli_fetch_array ($result) ) {
             $q[$x] = $row[0];
             $x++;
         }
-        mysql_free_result ($result);
+        mysqli_free_result ($result);
         return $q;
     }
 	//======================================================================================	
 	function Extract_Single($query)
     {
         $x = 0;
-        $result = mysql_query($query);
-        while ( $row = mysql_fetch_array ($result) ) {
+        $result = mysqli_query($this->dbh, "$query");
+        while ( $row = mysqli_fetch_array ($result) ) {
             $q[$x] = $row[0];
             $implode[] = $q[$x] ;
             $x++;
         }
-        mysql_free_result ($result);
+        mysqli_free_result ($result);
         return @implode(',', $implode);
     }
 //======================================================================================	
 	function check1column($table,$column,$v1) {
-        if (! $result=mysql_query ("select * from $table where $column ='$v1'")) {
-            $men = mysql_errno();
-            $mem = mysql_error();
+        if (! $result=mysqli_query ($this->dbh, "select * from $table where $column ='$v1'")) {
+            $men = mysqli_errno($this->dbh);
+            $mem = mysqli_error($this->dbh);
             echo ("<h4>$mysql  $men $mem</h4>");
             exit();
         }
-        $row=mysql_fetch_array ($result);
-        mysql_free_result ($result);
+        $row=mysqli_fetch_array ($result);
+        mysqli_free_result ($result);
         if ($row[0])
             $var =  1;
         else
@@ -138,14 +160,14 @@ class database{
     }
   //======================================================================================	
        function check2column($table,$column1,$v1,$column2,$v2) {
-        if (! $result=mysql_query ("select * from $table where $column2 ='$v2' and $column1='$v1'")) {
-            $men = mysql_errno();
-            $mem = mysql_error();
+        if (! $result=mysqli_query ($this->dbh, "select * from $table where $column2 ='$v2' and $column1='$v1'")) {
+            $men = mysqli_errno($this->dbh);
+            $mem = mysqli_error($this->dbh);
             echo ("<h4>$mysql  $men $mem</h4>");
             exit();
         }
-        $row=mysql_fetch_array ($result);
-        mysql_free_result ($result);
+        $row=mysqli_fetch_array ($result);
+        mysqli_free_result ($result);
         if ($row[0])
             $var =  1;
         else

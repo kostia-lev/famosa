@@ -18,8 +18,8 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
         } else {
             $row=$db->singlerec("select * from register where email='".$_SESSION['usr']."'");
             $img=$row['prof_image'];
-            echo '<p><a href="'.$siteurl.'/dashboard" class="footerboxlink">Mio account</a></p>';
-            echo '<p><a href="'.$siteurl.'/logout" class="footerboxlink">Esci</a></p>';
+            echo '<p><a href="/dashboard" class="footerboxlink">Mio account</a></p>';
+            echo '<p><a href="/logout" class="footerboxlink">Esci</a></p>';
         }
         ?>
           
@@ -28,16 +28,16 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
        
      <div class="col-md-3 col-sm-6 col-xs-12 pdb20">
          <p class="footerboxheader">Links</p>
-         <p class="mt20"><a href="<? echo $siteurl; ?>/faq" class="footerboxlink">FAQ</a></p>
-         <p><a href="<? echo $siteurl; ?>/terms-condition" class="footerboxlink">Termini e Condizioni</a></p>
-         <p><a href="<? echo $siteurl; ?>/privacy-policy" class="footerboxlink">Politica sulla Privacy</a></p>
+         <p class="mt20"><a href="/faq" class="footerboxlink">FAQ</a></p>
+         <p><a href="/terms-condition" class="footerboxlink">Termini e Condizioni</a></p>
+         <p><a href="/privacy-policy" class="footerboxlink">Politica sulla Privacy</a></p>
     </div><!--col-md-3-->
 
     <div class="col-md-3 col-sm-6 col-xs-12 pdb20">
           <p class="footerboxheader">Agenzia</p>
-          <p class="mt20"><a href="<? echo $siteurl; ?>/contatti" class="footerboxlink">Contatti</a></p>
-          <p><a href="<? echo $siteurl; ?>/chi-siamo" class="footerboxlink">Chi siamo</a></p>
-          <p><a href="<? echo $siteurl; ?>/lavora-con-noi" class="footerboxlink">Lavora con noi</a></p>
+          <p class="mt20"><a href="/contatti" class="footerboxlink">Contatti</a></p>
+          <p><a href="/chi-siamo" class="footerboxlink">Chi siamo</a></p>
+          <p><a href="/lavora-con-noi" class="footerboxlink">Lavora con noi</a></p>
           
     </div><!--col-md-3-->
 

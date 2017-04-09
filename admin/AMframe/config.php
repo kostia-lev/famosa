@@ -15,7 +15,7 @@ include "devices.php";
 include "numtostr.php"; 
 include "notification.php";
 include "resize-class.php";
-include "emailer.php";
+//include "emailer.php";
 
 $db=new database();
 $com_obj=new common();
@@ -28,7 +28,7 @@ $sitelogo = $GetSite['img'];
 $sitetitle = ucwords($GetSite['website_title']);
 $siteurl = $GetSite['website_url'];
 $siteemail = $GetSite['admin_email'];
-$sitepaypalemil = $GetSite['paypal_email'];
+$sitepaypalemil = $GetSite['paypal_email'] ?? '';
 $GetSiteAbt = $db->singlerec("select aboutus from cms where active_status='1'");
 $siteaboutus = ucfirst($GetSiteAbt['aboutus']);
 
