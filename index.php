@@ -12,7 +12,7 @@ include "mapapi.php";
                 <div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2 banner-search-form">
                 <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-0">
                     <div class="row text-center">
-						<form name="quicksrch1" action="property-list" method="post">
+						<form name="quicksrch1" action="property-list" method="get">
                             <div class="banner-group-3 mt20" >
                                 <select name="categ" class="form-control banner-group-brdr">
                                     <option value="">Categoria immobile</option>
