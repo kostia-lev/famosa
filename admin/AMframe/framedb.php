@@ -1,6 +1,10 @@
 <?php
-if( strpos($_SERVER['SERVER_NAME'], 'remax.local') === false)
+$localhost = false;
+if( strpos($_SERVER['SERVER_NAME'], 'remax.local') === false){
     error_reporting(0);
+}else{
+    $localhost = true;
+}
 session_name("_prd");
 session_start();
 
@@ -41,11 +45,14 @@ class database{
 			$dbpass  = "root";
 			$dbname  = "remax";
 			$this->dbh = mysqli_connect($host,$dbuser,$dbpass, $dbname);
+			global $localhost;
+			if($localhost)
+			    $this->insertrec('SET sql_mode = \'\'');
+
 			return $this->dbh;
 		}
   //======================================================================================
 		function insertrec($query){
-			
 			if(!mysqli_query($this->dbh, "$query")){
 			$err1 = mysqli_errno($this->dbh);
 			$err2 = mysqli_error($this->dbh);
@@ -120,7 +127,7 @@ class database{
             echo ("<h4>$query  $err1 $err2</h4>");
             exit;
         }
-        $rwId=mysql_insert_id();
+        $rwId=mysqli_insert_id($this->dbh);
         return $rwId;
     }
   //======================================================================================	

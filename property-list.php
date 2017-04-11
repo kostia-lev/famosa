@@ -11,6 +11,7 @@ include "mapapi.php";
     <div class="col-md-12 col-sm-12 col-xs-12 market-place-head-bg mt20">
         <span class="blackhead">Lista immobili
             <?php
+            $types = $types?? null;
             if($types != null){ echo "di tipo " . strtoupper(str_replace("-", " ", $types)); }
             else if($cat != null){ echo "della categoria " . strtoupper(str_replace("-", " ", $cat)); }
             if(!empty($loc)){ echo " a " . strtoupper(str_replace("-", " ", $loc)); }
