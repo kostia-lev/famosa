@@ -141,10 +141,7 @@ include "mapapi.php";
                           <div class="item active">
                               <div class="row">
 								<?
-
-                                $que="select * from listings where post_sts=1 and featured=1 order by rand() desc limit 0, 40";
-
-								$result=$db->get_all($que);
+								$result=$db->get_all_with_images();
 								foreach($result as $key => $row) {
 
                                         //Colors flags
@@ -155,8 +152,6 @@ include "mapapi.php";
                                         else if($ccount==3){ $color="#d9001a"; }
                                         else { $color="#f2bb3d"; }
                                         if($ccount == 4){ $ccount = 0; }
-
-										$im=$db->singlerec("select * from listing_images where pid='".$row['id']."' order by id limit 1");
 								?>
                                   <div class="col-md-3 col-sm-6 col-xs-12 mt20">
                                       <div class="carshop-item brdr-2">
@@ -164,7 +159,9 @@ include "mapapi.php";
                                               <div class="carshop-item-flags">
                                                   <div class="flag newFlag" style="background-color:<?php echo $color; ?>">Occasione</div>
                                               </div>
-                                              <a href="listing/<? echo $row['randuniq']; ?>/<? echo $row['slug']; ?>"><img src="images/prop/230_144/<? echo $im['image']; ?>" class="img-responsive" alt="a" /></a>
+                                              <a href="listing/<? echo $row['randuniq']; ?>/<? echo $row['slug']; ?>">
+                                                  <img src="images/prop/230_144/<? echo $row['image']; ?>" class="img-responsive" alt="a" />
+                                              </a>
                                           </div><!--photo-->
                                              <div class="info row">
                                                   <div class="col-md-12">

@@ -95,6 +95,12 @@ class database{
 				}				
 				return $result;
 			}
+   //
+        function get_all_with_images(){
+		    return $this->get_all("SELECT l.id, l.randuniq, l.slug, l.types, l.prop_title, l.location, l.exp_price, l.prop_for,
+                            l.covered_area, l.hall, l.bathroom, li.image FROM listings l 
+                            LEFT JOIN listing_images li ON li.pid=l.id  WHERE l.post_sts=1 AND l.featured=1 ORDER BY rand() DESC limit 0, 40");
+        }
   //======================================================================================
 		function get_all_assoc($query){
 			$rst = mysqli_query($this->dbh, "$query");
