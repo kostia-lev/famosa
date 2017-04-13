@@ -3,6 +3,9 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
 {
     exit('Accesso non consentito') ;
 }
+$bed = $bed?? null;
+$minp = $minp?? null;
+$maxp = $maxp?? null;
 ?>
 <div class="col-md-3 col-sm-12 col-xs-12 row ml10" style="padding-right:0px; padding-left:0px;">
          <div class="col-md-12 col-sm-12 col-xs-12 mt10 brdr">
