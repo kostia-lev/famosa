@@ -102,6 +102,24 @@ class database{
 				}				
 				return $result;
 			}
+	//=========
+    function getAllinsertIdPreparedStatement(string $query, string $types, array $params){
+        $preparedQuery = $this->dbh->stmt_init();
+        $preparedQuery->prepare($query);
+
+        $params = $this->refValues($params);
+        array_unshift($params, $types);
+
+        if (false === call_user_func_array(array($preparedQuery, 'bind_param'), $params)) {
+            $err1 = mysqli_errno($this->dbh);
+            $err2 = mysqli_error($this->dbh);
+            echo ("<h4>$query  $err1 $err2</h4>");
+            exit;
+        }
+        $preparedQuery->execute();
+        return $preparedQuery->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+	//=========
    //
         function get_all_with_images(){
 		    return $this->get_all("SELECT l.id, l.randuniq, l.slug, l.types, l.prop_title, l.location, l.exp_price, l.prop_for,
@@ -130,6 +148,31 @@ class database{
         $rwId=mysqli_insert_id($this->dbh);
         return $rwId;
     }
+
+    function insertIdPreparedStatement(string $query, array $params) {
+        $preparedQuery = $this->dbh->stmt_init();
+        $preparedQuery->prepare($query);
+
+        $params = $this->refValues($params);
+
+        if (!call_user_func_array(array($preparedQuery, 'bind_param'), $params)) {
+            $err1 = mysqli_errno($this->dbh);
+            $err2 = mysqli_error($this->dbh);
+            echo ("<h4>$query  $err1 $err2</h4>");
+            exit;
+        }
+        $preparedQuery->execute();
+        $rwId=mysqli_insert_id($this->dbh);
+        return $rwId;
+    }
+
+    function refValues($arr){
+        $refs = array();
+        foreach($arr as $key => $value)
+            $refs[$key] = &$arr[$key];
+        return $refs;
+    }
+
   //======================================================================================	
   function singlecolumn ($mysql) {
         $x = 0;

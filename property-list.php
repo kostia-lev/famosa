@@ -26,7 +26,9 @@ include "mapapi.php";
 	<div class="col-md-9 col-sm-12 col-xs-12 row">
 			<?
             $color = ($color ?? '');
-			$result=$db->get_all($que . $limit);
+
+            $result = $db->getAllinsertIdPreparedStatement($que, $queryTypes, $queryParams);
+
 			if(count($result)<1) {
 				echo "<br>Nessun immobile trovato con le caratteristiche selezionate!";
 			}
@@ -93,9 +95,9 @@ include "mapapi.php";
 		<div class="text-center boxs">
 			<div class="row">
 				<div class="col-md-12"><br>
-					<? $db->insertrec(getPagingQuery1($que, $perpage, "")); ?>
+					<? //is not needed: $db->insertrec(getPagingQuery1($que, $perpage, "")); ?>
 					<nav class="pagination-wrapper">
-					   <?echo $pagingLink = getPagingLink1($que, $perpage, ""); ?>
+					   <?echo $pagingLink = getPagingLink1($que, $perpage, "", $queryTypes, $queryParams); ?>
 					</nav>
 				</div>
 			</div>

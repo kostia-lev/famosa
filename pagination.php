@@ -25,15 +25,33 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
 	//echo $sql."LIMIT $offset,$itemPerPage";
 	return $sql . " LIMIT $offset, $itemPerPage";	
 }
-function getPagingLink1($sql, $itemPerPage = 20,$strGet){
+
+ function getPagingQuery1PreparedStatement($sql, $itemPerPage = 20){
+	if (isset($_GET['page']) && (int)$_GET['page'] > 0) {
+		$page = (int)$_GET['page'];
+	} else {
+		$page = 1;
+	}
+	// start fetching from this row number
+	$offset = ($page - 1) * $itemPerPage;
+	//echo $sql."LIMIT $offset,$itemPerPage";
+	return (['query'=>$sql . " LIMIT ?, ?", 'params'=>[$offset, $itemPerPage], 'types'=>'dd']);
+}
+
+function getPagingLink1($sql, $itemPerPage = 20,$strGet, $queryTypes = null, $queryParams = null){
     global $db;
 	$first=isset($first)?$first:'';
 	$prev=isset($prev)?$prev:'';
 	$next=isset($next)?$next:'';
 	$last=isset($last)?$last:'';
-	$result        = mysqli_query($db->getDbh(), $sql) or  die(mysqli_error($db->getDdh()));
+	if(is_null($queryParams) || is_null($queryTypes)){
+        $result        = mysqli_query($db->getDbh(), $sql) or  die(mysqli_error($db->getDdh()));
+        $totalResults  = mysqli_num_rows($result);
+    }else{
+        $result        = $db->getAllinsertIdPreparedStatement("SELECT COUNT(*) AS `cnt` FROM ($sql) `t`", $queryTypes, $queryParams);
+        $totalResults = $result[0]['cnt'];
+    }
 	$pagingLink    = '';
-	$totalResults  = mysqli_num_rows($result);
 	$totalPages    = ceil($totalResults / $itemPerPage);
 	// how many link pages to show
 	$numLinks      = 4;
