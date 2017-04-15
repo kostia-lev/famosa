@@ -12,6 +12,7 @@ include "mapapi.php";
         <span class="blackhead">Lista immobili
             <?php
             $types = $types?? null;
+            $cat = $cat?? null;
             if($types != null){ echo "di tipo " . strtoupper(str_replace("-", " ", $types)); }
             else if($cat != null){ echo "della categoria " . strtoupper(str_replace("-", " ", $cat)); }
             if(!empty($loc)){ echo " a " . strtoupper(str_replace("-", " ", $loc)); }

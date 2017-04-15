@@ -103,18 +103,21 @@ class database{
 				return $result;
 			}
 	//=========
+    //@todo hide from user errors of database
     function getAllinsertIdPreparedStatement(string $query, string $types, array $params){
         $preparedQuery = $this->dbh->stmt_init();
         $preparedQuery->prepare($query);
 
-        $params = $this->refValues($params);
-        array_unshift($params, $types);
+        if(count($params) && $types != ''){
+            $params = $this->refValues($params);
+            array_unshift($params, $types);
 
-        if (false === call_user_func_array(array($preparedQuery, 'bind_param'), $params)) {
-            $err1 = mysqli_errno($this->dbh);
-            $err2 = mysqli_error($this->dbh);
-            echo ("<h4>$query  $err1 $err2</h4>");
-            exit;
+            if (false === call_user_func_array(array($preparedQuery, 'bind_param'), $params)) {
+                $err1 = mysqli_errno($this->dbh);
+                $err2 = mysqli_error($this->dbh);
+                echo ("<h4>$query  $err1 $err2</h4>");
+                exit;
+            }
         }
         $preparedQuery->execute();
         return $preparedQuery->get_result()->fetch_all(MYSQLI_ASSOC);
