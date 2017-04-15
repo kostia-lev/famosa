@@ -211,11 +211,13 @@ if(isset($nslet)) {
 	else {
 		$check=$db->check1column("newsletter", "email", $mail);
 		if($check==0) {
-			$set="name='$name',";
-			$set.="email='$mail',";
-			$set.="ip='$ip',";
-			$set.="date='$time'";
-			$db->insertrec("insert into newsletter set $set");
+			$set="name=?,";
+			$set.="email=?,";
+			$set.="ip=?,";
+			$set.="date=?";
+			$insertQuery = "insert into newsletter set $set";
+			//$db->insertrec("insert into newsletter set $set");
+			$db->insertIdPreparedStatement($insertQuery, ['ssss', $name, $mail, $ip, $time]);
 			echo "<script>swal('Complimenti', 'Ti sei iscritto con successo alla Newsletter!', 'success')</script>";
 		}
 		else {
