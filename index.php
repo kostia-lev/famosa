@@ -1,4 +1,26 @@
 <?php
+require_once __DIR__.'/vendor/autoload.php';
+
+$app = new Silex\Application();
+
+$app['debug'] = true;
+
+$app->get('/property-list', function () {
+
+    //ob_start();
+
+    include('property-list.php');
+
+    //$output = ob_get_contents();
+
+    return '';
+});
+
+$app->run();
+
+
+
+
 include "header.php";
 include "mapapi.php";
 ?>

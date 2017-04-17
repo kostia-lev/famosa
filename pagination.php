@@ -39,7 +39,7 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
 }
 
 function getPagingLink1($sql, $itemPerPage = 20,$strGet, $queryTypes = null, $queryParams = null){
-    global $db;
+    $db = $GLOBALS['db'];
 	$first=isset($first)?$first:'';
 	$prev=isset($prev)?$prev:'';
 	$next=isset($next)?$next:'';

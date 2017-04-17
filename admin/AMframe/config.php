@@ -17,11 +17,11 @@ include "notification.php";
 include "resize-class.php";
 //include "emailer.php";
 
-$db=new database();
-$com_obj=new common();
-$drop = new dropdown;
-$imgobj = new images;
-$notifyobj = new notification;
+$GLOBALS['db'] = $db = new database();
+$GLOBALS['com_obj'] = $com_obj=new common();
+$GLOBALS['drop'] = $drop = new dropdown;
+$GLOBALS['imgObj'] = $imgobj = new images;
+$GLOBALS['notifyObj'] = $notifyobj = new notification;
 
 $GetSite = $db->singlerec("select * from general_setting");
 $sitelogo = $GetSite['img'];
