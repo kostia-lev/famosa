@@ -10,6 +10,11 @@ $app->get('/', function () {
     return '';
 });
 
+$app->post('/forgetpass', function () {
+    include('forgetpass.php');
+    return '';
+});
+
 $app->get('/property-list', function () {
     include('property-list.php');
     return '';
