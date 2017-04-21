@@ -73,10 +73,11 @@ $app->post('/signup', function() {
     return '';
 });
 
-$app->get('/faq', function() {
+/*$app->get('/faq', function() {
     include('faq.php');
     return '';
-});
+});*/
+$app->get('/faq', 'InfoPages\\InfoPagesController::faqAction');
 
 $app->get('/terms-condition', function() {
     include('terms-condition.php');
