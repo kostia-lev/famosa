@@ -6,7 +6,7 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
 }
 
 //SEO settings
-$generalset = $db->singlerec("select * from general_setting where id='1'");
+$GLOBALS['generalset'] = $generalset = $db->singlerec("select * from general_setting where id='1'");
 $seoset = $db->singlerec("select * from seo_setting where id='1'");
 $separator = " - ";
 

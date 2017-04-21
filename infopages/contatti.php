@@ -1,5 +1,5 @@
-<? include "header.php"; ?>
-<? $agency=$db->singlerec("select * from general_setting where id='1'"); ?>
+<? //include "header.php"; ?>
+<? //$agency=$db->singlerec("select * from general_setting where id='1'"); ?>
 
 <div class="container">
     <div class="col-md-12 col-sm-12 col-xs-12  market-place-head-bg mt20">

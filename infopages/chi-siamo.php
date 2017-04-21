@@ -1,6 +1,6 @@
 <?
-include "header.php";
-$cms=$db->singlerec("select * from cms where active_status=1");
+//include "header.php";
+//$cms=$db->singlerec("select * from cms where active_status=1");
 ?>
 
 <div class="container">
@@ -32,8 +32,6 @@ $cms=$db->singlerec("select * from cms where active_status=1");
     </div><!--col-md-12 col-sm-12 col-xs-12 market-place-head-bg mt20-->
     <div class="col-md-12 mt20 row" style="padding-left:0px; padding-right:0px;">
         <?
-        $que="select * from register where active=1";
-        $result=$db->get_all($que);
         if(count($result)<1) {
             echo "<br>Nessun agente trovato!";
         }

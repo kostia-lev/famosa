@@ -1,4 +1,4 @@
-<? include "header.php"; ?>
+<? //include "header.php"; ?>
 
 <div class="container">
     <div class="col-md-12 col-sm-12 col-xs-12  market-place-head-bg mt20">
@@ -17,7 +17,6 @@
 					
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 		<?
-		$faq=$db->get_all("select * from faq where status=1 order by id");
 		foreach($faq as $f) {
 		?>
         <div class="panel panel-default">

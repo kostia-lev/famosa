@@ -1,5 +1,5 @@
 <?
-include "admin/AMframe/config.php";
+//include "admin/AMframe/config.php";
 
 if(isset($cont_agent)) { //Form contatta agente
 	$name=trim(addslashes($name));

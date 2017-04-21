@@ -1,4 +1,4 @@
-<? include "header.php"; ?>
+<? //include "header.php"; ?>
 
 <div class="container">
     <div class="col-md-12 col-sm-12 col-xs-12  market-place-head-bg mt20">
@@ -16,7 +16,7 @@
 					<div class="text-center blackhead" style="font-size:20px; font-weight:bold;">Privacy Policy</div>
 					<div class="col-md-12">
 					<?
-					$cms=$db->singlerec("select * from cms where active_status=1");
+					//$cms=$db->singlerec("select * from cms where active_status=1");
 					?>
 					<div class="col-md-12 col-sm-6">					   
 					   <div class="customer-review-font  mt10">

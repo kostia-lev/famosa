@@ -24,13 +24,13 @@ $GLOBALS['imgObj'] = $imgobj = new images;
 $GLOBALS['notifyObj'] = $notifyobj = new notification;
 
 $GetSite = $db->singlerec("select * from general_setting");
-$sitelogo = $GetSite['img'];
-$sitetitle = ucwords($GetSite['website_title']);
-$siteurl = $GetSite['website_url'];
-$siteemail = $GetSite['admin_email'];
-$sitepaypalemil = $GetSite['paypal_email'] ?? '';
+$GLOBALS['sitelogo'] = $sitelogo = $GetSite['img'];
+$GLOBALS['sitetitle'] = $sitetitle = ucwords($GetSite['website_title']);
+$GLOBALS['siteurl'] = $siteurl = $GetSite['website_url'];
+$GLOBALS['siteemail'] = $siteemail = $GetSite['admin_email'];
+$GLOBALS['sitepaypalemil'] = $sitepaypalemil = $GetSite['paypal_email'] ?? '';
 $GetSiteAbt = $db->singlerec("select aboutus from cms where active_status='1'");
-$siteaboutus = ucfirst($GetSiteAbt['aboutus']);
+$GLOBALS['siteaboutus'] = $siteaboutus = ucfirst($GetSiteAbt['aboutus']);
 
 function textwatermark($src, $watermark, $save=NULL) { 
 	$getext = substr(strrchr($src, '.'), 1);
@@ -59,4 +59,3 @@ function textwatermark($src, $watermark, $save=NULL) {
 	imagedestroy($image); 
 	imagedestroy($image_p); 
 }
-?>

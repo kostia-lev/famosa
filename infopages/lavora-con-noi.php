@@ -1,6 +1,6 @@
 <?
-include "header.php";
-$cms=$db->singlerec("select * from cms where active_status=1");
+//include "header.php";
+//$cms=$db->singlerec("select * from cms where active_status=1");
 ?>
 
     <div class="container">
