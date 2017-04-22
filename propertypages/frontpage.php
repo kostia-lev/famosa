@@ -1,6 +1,6 @@
 <?
-include "header.php";
-include "mapapi.php";
+//include "header.php";
+//include "mapapi.php";
 ?>
 
 <div class="container-fluid banner">
@@ -141,7 +141,7 @@ include "mapapi.php";
                     <div class="item active">
                         <div class="row">
                             <?
-                            $result=$db->get_all_with_images();
+                            //$result=$db->get_all_with_images();
                             foreach($result as $key => $row) {
 
                                 //Colors flags

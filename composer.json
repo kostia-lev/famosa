@@ -3,7 +3,8 @@
         "silex/silex": "~2.0"
     },
     "autoload": {
-        "psr-4": {"InfoPages\\": "infopages/"}
+        "psr-4": {"InfoPages\\": "infopages/",
+            "PropertyPages\\": "propertypages/"}
     }
 
 }

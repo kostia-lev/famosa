@@ -5,20 +5,22 @@ $app = new Silex\Application();
 
 $app['debug'] = true;
 
-$app->get('/', function () {
+/*$app->get('/', function () {
     include('frontpage.php');
     return '';
-});
+});*/
+$app->get('/', 'PropertyPages\\PropertyPagesController::frontAction');
+$app->get('/property-list', 'PropertyPages\\PropertyPagesController::propListAction');
 
 $app->post('/forgetpass', function () {
     include('forgetpass.php');
     return '';
 });
 
-$app->get('/property-list', function () {
+/*$app->get('/property-list', function () {
     include('property-list.php');
     return '';
-});
+});*/
 
 $app->get('/category/{cat}', function ($cat) use($app) {
     $cat = $app->escape($cat);
@@ -73,10 +75,6 @@ $app->post('/signup', function() {
     return '';
 });
 
-/*$app->get('/faq', function() {
-    include('faq.php');
-    return '';
-});*/
 $app->get('/faq', 'InfoPages\\InfoPagesController::faqAction');
 $app->get('/terms-condition', 'InfoPages\\InfoPagesController::termsConditionAction');
 $app->get('/privacy-policy', 'InfoPages\\InfoPagesController::privacyPolicyAction');
@@ -84,29 +82,5 @@ $app->get('/contatti', 'InfoPages\\InfoPagesController::contattiAction');
 $app->get('/chi-siamo', 'InfoPages\\InfoPagesController::chisiamoAction');
 $app->get('/lavora-con-noi', 'InfoPages\\InfoPagesController::lavoraconnoiAction');
 
-/*$app->get('/terms-condition', function() {
-    include('terms-condition.php');
-    return '';
-});*/
-
-/*$app->get('/privacy-policy', function() {
-    include('privacy-policy.php');
-    return '';
-});*/
-
-/*$app->get('/contatti', function() {
-    include('contatti.php');
-    return '';
-});*/
-
-/*$app->get('/chi-siamo', function() {
-    include('chi-siamo.php');
-    return '';
-});
-
-$app->get('/lavora-con-noi', function() {
-    include('lavora-con-noi.php');
-    return '';
-});*/
 
 $app->run();

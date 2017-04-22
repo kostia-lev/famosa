@@ -12,7 +12,7 @@ $maxp = $maxp?? null;
           
               <p><span class="blackhead"> Cerca immobile</span></p>
               <div class="new-properties-brdr-btm-2"></div>
-                  <form name="advsrch" action="<? echo $siteurl; ?>/property-list" class="form-horizontal" method="post">
+                  <form name="advsrch" action="/property-list" class="form-horizontal" method="post">
                       <div class=" form-group">
                           <div class="col-sm-12 pdt15">
                               <input type="text" name="keyword" class="form-control form-ctrl-height" placeholder="Titolo o Indirizzo immobile" value="<? echo @$keyword; ?>">
@@ -179,7 +179,7 @@ $maxp = $maxp?? null;
 				<p><span class="blackhead">Ricevi aggiornamenti</span></p>
 				<div class="new-properties-brdr-btm-2"></div><br>
 				<div class="property-news-font-1">Inserisci il tuo nome e la tua email per sapere quali sono gli ultimi immobili in arrivo.</div><!--property-news-font--><br>
-				<form name="nslet" action="<?php echo $siteurl . "/index.php"; ?>" method="post">
+				<form name="nslet" action="<?php echo "/index.php"; ?>" method="post">
 				<input type="text" name="name" class="form-control" placeholder="Il tuo nome" value="<? echo @$name; ?>" required="">
 				<div class="mt10"><input type="email" name="email" class="form-control" placeholder="La tua email" <? echo @$email; ?> required=""></div>
 				<label class="col-md-12 col-sm-12 col-xs-12 mt20">
@@ -195,7 +195,7 @@ $maxp = $maxp?? null;
      
      
      <div class="col-md-12 col-sm-12 col-xs-12 mt10 text-center brdr">
-          <a href="#"><img src="<? echo $siteurl; ?>/assets/images/ad.jpg" class="img-responsive"><a>
+          <a href="#"><img src="/assets/images/ad.jpg" class="img-responsive"><a>
          
      </div><!--col-md-3 col-sm-12 col-xs-12-->
      

@@ -49,7 +49,6 @@ class InfoPagesController
     }
 
     public function contactAction(Request $request, Application $app ){
-        include "admin/AMframe/config.php";
 
         require_once 'contact.php';
 

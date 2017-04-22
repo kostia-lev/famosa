@@ -1,10 +1,10 @@
 <?
-include "header.php";
+/*include "header.php";
 include "pagination.php";
 $perpage=12;
 $limit=limitation($perpage);
 include "srch_algorithm.php";
-include "mapapi.php";
+include "mapapi.php";*/
 ?>
 
 <div class="container">
@@ -22,20 +22,20 @@ include "mapapi.php";
         </span>
     </div><!--col-md-12 col-sm-12 col-xs-12 market-place-head-bg mt20-->
     <div class="col-md-9 col-sm-12 col-xs-12 row">
-	  	<a href="<?php echo $siteurl;?>/map" class="btn btn-map mt20"><i class="fa fa-map-marker" aria-hidden="true"></i> Visualizza su Mappa</a>
+	  	<a href="/map" class="btn btn-map mt20"><i class="fa fa-map-marker" aria-hidden="true"></i> Visualizza su Mappa</a>
     </div>
 	<div class="col-md-9 col-sm-12 col-xs-12 row">
 			<?
             $color = ($color ?? '');
 
-            $result = $db->getAllinsertIdPreparedStatement($que, $queryTypes, $queryParams);
+            //$result = $db->getAllinsertIdPreparedStatement($que, $queryTypes, $queryParams);
 
 			if(count($result)<1) {
 				echo "<br>Nessun immobile trovato con le caratteristiche selezionate!";
 			}
 			else {
 				foreach($result as $row) {
-					$im=$db->singlerec("select * from listing_images where pid='".$row['id']."'");
+					$im=$GLOBALS['db']->singlerec("select * from listing_images where pid='".$row['id']."'");
 			?>
         <div class="col-md-4 col-sm-6 col-xs-12 mt20  market-place-pddng">
             <div class="carshop-item brdr-2">
@@ -49,7 +49,7 @@ include "mapapi.php";
                         <dd class="flag newFlag-yellow" style="background-color:<?php echo $color; ?>">In affitto</dd>
                     </div>
                     <?php } ?>
-                    <a href="<? echo $siteurl; ?>/listing/<? echo $row['randuniq']; ?>/<? echo $row['slug']; ?>"><img src="<? echo $siteurl; ?>/images/prop/230_144/<? echo $im['image']; ?>"  alt="*" /></a>
+                    <a href="/listing/<? echo $row['randuniq']; ?>/<? echo $row['slug']; ?>"><img src="/images/prop/230_144/<? echo $im['image']; ?>"  alt="*" /></a>
                 </div><!--photo-->
                    <div class="info row">
                         <div class="col-md-12">
@@ -82,7 +82,7 @@ include "mapapi.php";
 						    ?>
 
 						    <div class="col-md-6 col-sm-6 col-xs-6 text-right pdt10 pdr40 mb5">
-                                <a href="<? echo $siteurl; ?>/listing/<? echo $row['randuniq']; ?>/<? echo $row['slug']; ?>" class="btn btn-view-detail">
+                                <a href="/listing/<? echo $row['randuniq']; ?>/<? echo $row['slug']; ?>" class="btn btn-view-detail">
                                 Dettagli</a>
                             </div>
                        </div>
