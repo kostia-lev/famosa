@@ -1409,7 +1409,7 @@ if(isset($p_ad)) {
         else
         {
             @preg_match('/(https:|http:|):(\/\/www\.|\/\/|)(.*?)\/(embed\/|watch.*?v=|)([a-z_A-Z0-9\-]{11})/i', $video, $IDD);
-            $video = $IDD[5];
+            $video = $IDD[5]?? null;
         }
 
         if($_FILES['file']['tmp_name'] != "" && $_FILES['file']['tmp_name'] != "null") {
@@ -1434,7 +1434,8 @@ if(isset($p_ad)) {
 			foreach($files as $file) {
 				$fl=$file['tmp_name'];
 				$fln=$file['name'];
-				$ext=end(explode(".", $fln));
+				$ext=pathinfo($fln);
+				$ext = $ext['extension']?? null;
 				$ext=strtolower($ext);
 				list($width,$height,$type,$attr)=getimagesize($fl);
 				if(($ext != "jpg") && ($ext != "jpeg") && ($ext != "gif") && ($ext != "png")) {
@@ -1761,7 +1762,9 @@ if(isset($p_ad)) {
             }
 		}
 }
-?>               				 
+$types = $types?? null;
+$categ = $categ?? null;
+?>
 <form class="tab-content contain" id="p_ad" action="post-ad" method="post" enctype="multipart/form-data">
     <div class="tab-pane active" id="details">
     <div class="col-md-9 col-sm-12 col-xs-12 mt5 row">

@@ -277,6 +277,10 @@ else if(isset($advsrch)) { // Advsrch widget sidebar
     $max=trim(addslashes($maxp));
     $que="select * from listings where post_sts=1 ";
 
+    $city = $city?? null;
+    $tbudmin = $tbudmin?? null;
+    $tbudmax = $tbudmax?? null;
+
 
 
 
