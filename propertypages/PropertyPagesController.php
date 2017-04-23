@@ -37,4 +37,36 @@ class PropertyPagesController
 
         return '';
     }
+
+    public function categoryAction(Request $request, Application $app ){
+
+        //to avoid errors in ide
+        $que = $queryTypes = $queryParams = null;
+        require_once "pagination.php";
+        $perpage=12;
+        $limit=limitation($perpage);
+        require_once "srch_algorithm.php";
+
+        $result = $GLOBALS['db']->getAllinsertIdPreparedStatement($que, $queryTypes, $queryParams);
+
+        require_once 'property-list.php';
+
+        return '';
+    }
+
+    public function typeAction(Request $request, Application $app ){
+
+        //to avoid errors in ide
+        $que = $queryTypes = $queryParams = null;
+        require_once "pagination.php";
+        $perpage=12;
+        $limit=limitation($perpage);
+        require_once "srch_algorithm.php";
+
+        $result = $GLOBALS['db']->getAllinsertIdPreparedStatement($que, $queryTypes, $queryParams);
+
+        require_once 'property-list.php';
+
+        return '';
+    }
 }

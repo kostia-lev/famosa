@@ -4,6 +4,10 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
 {
     exit('Accesso non consentito') ;
 }
+//@tobe removed as non secure
+foreach ($_REQUEST as $key=>$value) {
+    $$key=$value;
+}
 //array of params for query
 $queryParams = [];
 $queryTypes = '';
@@ -91,7 +95,7 @@ else if(isset($quicksrch1)) { // Quicksearch1 homepage
 
     $save = "insert into research set $set";
 
-    $db->insertIdPreparedStatement($save, $insertParams);
+    $GLOBALS['db']->insertIdPreparedStatement($save, $insertParams);
 
     if(!empty($city)) {
         $que.="and location like ? or address like ? ";
@@ -292,7 +296,7 @@ else if(isset($advsrch)) { // Advsrch widget sidebar
 
     $save = "insert into research set $set";
 
-    $db->insertIdPreparedStatement($save, $insertParams);
+    $GLOBALS['db']->insertIdPreparedStatement($save, $insertParams);
 
     if(!empty($keyword)) {
         $que.="and (prop_title like ? or location like ? or address like ?) ";

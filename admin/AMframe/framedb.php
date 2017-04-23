@@ -311,11 +311,13 @@ class database{
 
 	$GT_vadmin = 1;
 //========================================================================
-while(list($key,$value)=@each($_POST)) {
+/*
+ * This script is not save, allows creating any variables via commind line
+ * while(list($key,$value)=each($_POST)) {
 	$$key=$value;
 }
 
-while(list($key,$value)=@each($_GET)) {
+while(list($key,$value)=each($_GET)) {
     $$key=$value;
-}	
+}*/
 ?>

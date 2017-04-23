@@ -11,6 +11,7 @@ $app['debug'] = true;
 });*/
 $app->get('/', 'PropertyPages\\PropertyPagesController::frontAction');
 $app->get('/property-list', 'PropertyPages\\PropertyPagesController::propListAction');
+$app->get('/category/{cat}', 'PropertyPages\\PropertyPagesController::categoryAction');
 
 $app->post('/forgetpass', function () {
     include('forgetpass.php');
@@ -22,11 +23,11 @@ $app->post('/forgetpass', function () {
     return '';
 });*/
 
-$app->get('/category/{cat}', function ($cat) use($app) {
+/*$app->get('/category/{cat}', function ($cat) use($app) {
     $cat = $app->escape($cat);
     include('property-list.php');
     return '';
-});
+});*/
 
 $app->get('/type/{types}', function ($types) use($app) {
     $types = $app->escape($types);
