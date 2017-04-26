@@ -31,23 +31,22 @@ class database{
         }
 
 		function __construct(){
-			/*$host    = "localhost";
-			$dbuser  = "alessi74_rfamosa";
-			$dbpass  = "ziLgAL1yQUoZ";
-			$dbname  = "alessi74_rfamosa45";
-			$dbh = mysqli_connect($host,$dbuser,$dbpass);
-			mysqli_select_db($dbname);
+            global $localhost;
 
-			return $dbh;*/
-			
-            $host    = "localhost";
-			$dbuser  = "root";
-			$dbpass  = "root";
-			$dbname  = "remax";
-			$this->dbh = mysqli_connect($host,$dbuser,$dbpass, $dbname);
-			global $localhost;
-			if($localhost)
-			    $this->insertrec('SET sql_mode = \'\'');
+            if($localhost){
+                $host    = "localhost";
+                $dbuser  = "root";
+                $dbpass  = "root";
+                $dbname  = "remax";
+                $this->dbh = mysqli_connect($host,$dbuser,$dbpass, $dbname);
+                $this->insertrec('SET sql_mode = \'\'');
+            }else{
+                $host    = "localhost";
+                $dbuser  = "alessi74_rfamosa";
+                $dbpass  = "ziLgAL1yQUoZ";
+                $dbname  = "alessi74_rfamosa45";
+                $this->dbh = mysqli_connect($host,$dbuser,$dbpass, $dbname);
+            }
 
 			return $this->dbh;
 		}
@@ -120,7 +119,30 @@ class database{
             }
         }
         $preparedQuery->execute();
-        return $preparedQuery->get_result()->fetch_all(MYSQLI_ASSOC);
+        $meta = $preparedQuery->result_metadata();
+        $i = 0;
+
+        $columns = [];
+        while ($field = $meta->fetch_field()) {
+            $columns[] = $field->name;
+            $var = $i;
+            $$var = null;
+            $query_data[$var] = &$$var;
+            $i++;
+        }
+
+        $return = array();
+
+        call_user_func_array(array($preparedQuery,'bind_result'), $query_data);
+        while ($preparedQuery->fetch()) {
+            $tmp = [];
+            for ($i=0; $i<count($query_data); $i++) {
+                $tmp[$columns[$i]] = $query_data[$i] ;
+            }
+            $return[] = $tmp;
+        }
+
+        return $return;//$preparedQuery->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 	//=========
    //
