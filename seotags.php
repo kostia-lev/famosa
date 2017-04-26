@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_URI'] == "/") {
 
 //type page
 else if(strpos($_SERVER['REQUEST_URI'], 'type')==true) {
-    echo "<title>Immobili di tipo " . str_replace('-', ' ', $types) . $separator . $generalset['website_title'] . "</title>
+    echo "<title>Immobili di tipo " . str_replace('-', ' ', $request->get('types')) . $separator . $generalset['website_title'] . "</title>
     ";
     echo "<link rel='canonical' href='" . $siteurl . $_SERVER['REQUEST_URI'] . "' />
     ";

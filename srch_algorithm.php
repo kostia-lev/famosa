@@ -12,7 +12,7 @@ foreach ($_REQUEST as $key=>$value) {
 $queryParams = [];
 $queryTypes = '';
 
-if(isset($cat) && empty($loc)) { // URL category property
+/*if(isset($cat) && empty($loc)) { // URL category property
     $cat=trim(addslashes($cat));
     $que="select * from listings where post_sts=1 ";
     if(!empty($cat)) {
@@ -48,7 +48,8 @@ else if(isset($types) && empty($loc)) { // URL type property
         header("Location: $siteurl"); exit;
     }
 }
-else if(isset($loc) && empty($cat) && empty($types)) { // URL ?loc= filter
+else */
+if(isset($loc) && empty($cat) && empty($types)) { // URL ?loc= filter
     $_SESSION['loc']=trim(addslashes($loc));
     $_SESSION['loc'] = str_replace("-", " ", $_SESSION['loc']);
 

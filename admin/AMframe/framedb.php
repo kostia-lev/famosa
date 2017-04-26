@@ -103,6 +103,7 @@ class database{
 				return $result;
 			}
 	//=========
+
     //@todo hide from user errors of database
     function getAllinsertIdPreparedStatement(string $query, string $types, array $params){
         $preparedQuery = $this->dbh->stmt_init();
@@ -119,8 +120,41 @@ class database{
                 exit;
             }
         }
+        return $this->executeGetResultFetchAll($preparedQuery);
+    }
+
+    function executeGetResultFetchAll(mysqli_stmt $preparedQuery):array{
         $preparedQuery->execute();
         return $preparedQuery->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function getAllPropertySql():string{
+        return "SELECT * FROM listings l WHERE l.post_sts=1 ";
+    }
+
+    function getAllPropertyByType(string $types, array $params){
+        $que = $this->getAllPropertySql();
+
+        if($params[0] == "tutto-il-mondo") {
+            $que .= " AND location NOT LIKE '%Italia%' ";
+        }else{
+            $que .= ' AND l.types=? ORDER BY id DESC';
+        }
+
+        //$query = $this->getAllPropertySql() . ' AND l.types=? ORDER BY id DESC';
+        return ['result'=>$this->getAllinsertIdPreparedStatement($que, $types, $params),
+            'que'=>$que];
+    }
+
+    function getAllPropertyByCategory(string $types, array $params){
+        $que = $this->getAllPropertySql();
+        if($params[0] == "estero") {
+            $que .= " AND location NOT LIKE '%Italia%' ";
+        }else{
+            $que .= ' AND l.category=? ORDER BY id DESC';
+        }
+        return ['result'=>$this->getAllinsertIdPreparedStatement($que, $types, $params),
+            'que'=>$que];
     }
 	//=========
    //
@@ -134,7 +168,7 @@ class database{
 			$rst = mysqli_query($this->dbh, "$query");
 			$result = array();
 			$x=0;
-			while($row=mysql_fetch_assoc($rst)){
+			while($row=mysqli_fetch_assoc($rst)){
 				$result[$x] = $row;
 				$x++;
 				}				

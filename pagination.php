@@ -45,6 +45,7 @@ function getPagingLink1($sql, $itemPerPage = 20,$strGet, $queryTypes = null, $qu
 	$next=isset($next)?$next:'';
 	$last=isset($last)?$last:'';
 	if(is_null($queryParams) || is_null($queryTypes)){
+        //var_dump($db->getDbh());exit;
         $result        = mysqli_query($db->getDbh(), $sql) or  die(mysqli_error($db->getDdh()));
         $totalResults  = mysqli_num_rows($result);
     }else{
