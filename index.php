@@ -19,12 +19,8 @@ $app['debug'] = true;
 $app->get('/', 'PropertyPages\\PropertyPagesController::frontAction');
 $app->get('/property-list', 'PropertyPages\\PropertyPagesController::propListAction');
 $app->get('/category/{cat}', 'PropertyPages\\PropertyPagesController::categoryAction');
+$app->get('/listing/{prop}/{name}', 'PropertyPages\\PropertyPagesController::propertyDetailAction');
 $app->get('/type/{types}', 'PropertyPages\\PropertyPagesController::typeAction');
-
-$app->post('/forgetpass', function () {
-    include('forgetpass.php');
-    return '';
-});
 
 /*$app->get('/property-list', function () {
     include('property-list.php');
@@ -43,11 +39,11 @@ $app->post('/forgetpass', function () {
     return '';
 });*/
 
-$app->get('/listing/{id}/{name}', function($id) use($app) {
+/*$app->get('/listing/{id}/{name}', function($id) use($app) {
     $prop = $app->escape($id);
     include('property-detail.php');
     return '';
-});
+});*/
 
 $app->get('/dashboard', function() {
     include('dashboard.php');
@@ -56,11 +52,6 @@ $app->get('/dashboard', function() {
 
 $app->get('/logout', function() {
     include('logout.php');
-    return '';
-});
-
-$app->get('/post-ad', function() {
-    include('post-ad.php');
     return '';
 });
 
@@ -74,8 +65,8 @@ $app->post('/session', function() {
     return '';
 });
 
-$app->get('/session', function() {
-    include('session.php');
+$app->post('/forgetpass', function () {
+    include('forgetpass.php');
     return '';
 });
 

@@ -156,6 +156,16 @@ class database{
         return ['result'=>$this->getAllinsertIdPreparedStatement($que, $types, $params),
             'que'=>$que];
     }
+
+    function getAllPropertyList(string $types, array $params){
+        $que = $this->getAllPropertySql();
+
+
+
+
+        return ['result'=>$this->getAllinsertIdPreparedStatement($que, $types, $params),
+            'que'=>$que];
+    }
 	//=========
    //
         function get_all_with_images(){

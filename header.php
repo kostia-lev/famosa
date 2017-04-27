@@ -81,7 +81,7 @@ $(document).ready(function(){
             <input type="text" class="form-control" name="name" placeholder="Inserisci il tuo nome" required>
           </div>
 		  <?
-		  if(!$_SESSION['usr']) {
+		  if(empty($_SESSION['usr'])) {
 			echo '<div class="form-group"><label for="recipient-name" class="control-label">Email:</label>
 				  <input type="email" class="form-control" name="email" placeholder="Inserisci la tua email" required></div>';
 		  }

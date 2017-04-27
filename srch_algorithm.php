@@ -49,7 +49,7 @@ else if(isset($types) && empty($loc)) { // URL type property
     }
 }
 else */
-if(isset($loc) && empty($cat) && empty($types)) { // URL ?loc= filter
+/*if(isset($loc) && empty($cat) && empty($types)) { // URL ?loc= filter
     $_SESSION['loc']=trim(addslashes($loc));
     $_SESSION['loc'] = str_replace("-", " ", $_SESSION['loc']);
 
@@ -57,7 +57,7 @@ if(isset($loc) && empty($cat) && empty($types)) { // URL ?loc= filter
     echo "<script>location.href='$curpage';</script>";
     header("Location: $curpage"); exit;
 }
-else if(isset($_GET['types']) && isset($_GET['loc'])) { // URL types property combined with location
+else*/ /*if(isset($_GET['types']) && isset($_GET['loc'])) { // URL types property combined with location
     $_SESSION['types']=trim(addslashes($_GET['types']));
     $_SESSION['loc']=trim(addslashes($_GET['loc']));
     $_SESSION['loc'] = str_replace("-", " ", $_SESSION['loc']);
@@ -75,7 +75,9 @@ else if(isset($_GET['cat']) && isset($_GET['loc'])) { // URL category property c
     echo "<script>location.href='$curpage';</script>";
     header("Location: $curpage"); exit;
 }
-else if(isset($quicksrch1)) { // Quicksearch1 homepage
+else*/
+if(isset($quicksrch1) || isset($advsrch)) { // Quicksearch1 homepage
+    $keyword=trim(addslashes($keyword));
     $city=trim(addslashes($city));
     $covered_area=trim(addslashes($covered_area));
     $budgetmin=trim(addslashes($tbudmin));
@@ -83,204 +85,8 @@ else if(isset($quicksrch1)) { // Quicksearch1 homepage
     $cat=trim(addslashes($categ));
     $pfor=trim(addslashes($pfor));
     $que="select * from listings where post_sts=1 ";
+    $formname = $quicksrch1??$advsrch??null;
 
-    //Save research
-    $set = "category=?,";
-    $set .= "location=?,";
-    $set .= "pfor=?,";
-    $set .= "tbudmin=?,";
-    $set .= "tbudmax=?,";
-    $set .= "form='quicksrch1'";
-    $insertTypes = 'sssdd';
-    $insertParams = [$insertTypes, $cat, $city, $pfor, $tbudmin, $tbudmax];
-
-    $save = "insert into research set $set";
-
-    $GLOBALS['db']->insertIdPreparedStatement($save, $insertParams);
-
-    if(!empty($city)) {
-        $que.="and location like ? or address like ? ";
-        $queryParams[] = "'%$city%'";
-        $queryTypes.='s';
-        $queryParams[] = "'%$city%'";
-        $queryTypes.='s';
-        if(!empty($cat)) {
-            $que .= "and category=? ";
-            $queryParams[] = $cat;
-            $queryTypes.='s';
-        }
-        if(!empty($pfor)) {
-            $que.="and prop_for=? ";
-            $queryParams[] = $pfor;
-            $queryTypes.='s';
-        }
-        if(!empty($covered_area)) {
-            $que.="and covered_area>=? ";
-            $queryParams[] = $covered_area;
-            $queryTypes.='d';
-        }
-        if(!empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price between $budgetmin and $budgetmax ";
-            $queryParams[] = $budgetmin;
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        else if(!empty($budgetmin) && empty($budgetmax)) {
-            $que .= "and exp_price>=?";
-            $queryParams[] = $budgetmin;
-            $queryTypes.='d';
-        }
-        else if(empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price<=?";
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-        }
-    }
-    else if(empty($city)&&!empty($covered_area)) {
-        $que.="and covered_area>=? ";
-        if(!empty($cat)) {
-            $que .= "and category=? ";
-            $queryParams[] = $cat;
-            $queryTypes.='s';
-        }
-        if(!empty($pfor)) {
-            $que.="and prop_for=? ";
-            $queryParams[] = $pfor;
-            $queryTypes.='s';
-        }
-        if(!empty($covered_area)) {
-            $que.="and covered_area>=? ";
-            $queryParams[] = $covered_area;
-            $queryTypes.='d';
-        }
-        if(!empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $budgetmin;
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        else if(!empty($budgetmin) && empty($budgetmax)) {
-            $que .= "and exp_price>=?";
-            $queryParams[] = $budgetmin;
-            $queryTypes.='d';
-        }
-        else if(empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price<=?";
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-        }
-    }
-    else if(empty($city)&&!empty($budgetmin) || !empty($budgetmax)) {
-        if(!empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $budgetmin;
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        else if(!empty($budgetmin) && empty($budgetmax)) {
-            $que .= "and exp_price>=?";
-            $queryParams[] = $budgetmin;
-            $queryTypes.='d';
-        }
-        else if(empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price<=?";
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-        }
-        if(!empty($cat)) {
-            $que .= "and category=? ";
-            $queryParams[] = $cat;
-            $queryTypes.='s';
-        }
-        if(!empty($pfor)) {
-            $que.="and prop_for=? ";
-            $queryParams[] = $pfor;
-            $queryTypes.='s';
-        }
-        if(!empty($covered_area)) {
-            $que.="and covered_area>=? ";
-            $queryParams[] = $covered_area;
-            $queryTypes.='d';
-        }
-    }
-    else if(empty($city)&&!empty($cat)) {
-        $que.="and category=? ";
-        $queryParams[] = $cat;
-        $queryTypes.='s';
-        if(!empty($pfor)) {
-            $que.="and prop_for=? ";
-            $queryParams[] = $pfor;
-            $queryTypes.='s';
-        }
-        if(!empty($covered_area)) {
-            $que.="and covered_area>=? ";
-            $queryParams[] = $covered_area;
-            $queryTypes.='d';
-        }
-        if(!empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $budgetmin;
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        else if(!empty($budgetmin) && empty($budgetmax)) {
-            $que .= "and exp_price>=?";
-            $queryParams[] = $budgetmin;
-            $queryTypes.='d';
-        }
-        else if(empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price<=?";
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-        }
-    }
-    else if(empty($city)&&!empty($pfor)) {
-        $que.="and prop_for=? ";
-        $queryParams[] = $pfor;
-        $queryTypes.='s';
-        if(!empty($cat)) {
-            $que .= "and category=? ";
-            $queryParams[] = $cat;
-            $queryTypes.='s';
-        }
-        if(!empty($covered_area)) {
-            $que.="and covered_area>=? ";
-            $queryParams[] = $covered_area;
-            $queryTypes.='d';
-        }
-        if(!empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $budgetmin;
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        else if(!empty($budgetmin) && empty($budgetmax)) {
-            $que .= "and exp_price>=?";
-            $queryParams[] = $budgetmin;
-            $queryTypes.='d';
-        }
-        else if(empty($budgetmin) && !empty($budgetmax)) {
-            $que .= "and exp_price<=?";
-            $queryParams[] = $budgetmax;
-            $queryTypes.='d';
-        }
-    }
-
-}
-else if(isset($advsrch)) { // Advsrch widget sidebar
-    $keyword=trim(addslashes($keyword));
-    $cat=trim(addslashes($categ));
-    $pfor=trim(addslashes($pfor));
-    $bed=trim(addslashes($bed));
-    $bath=trim(addslashes($bath));
-    $min=trim(addslashes($minp));
-    $max=trim(addslashes($maxp));
-    $que="select * from listings where post_sts=1 ";
 
 
 
@@ -291,13 +97,14 @@ else if(isset($advsrch)) { // Advsrch widget sidebar
     $set .= "pfor=?,";
     $set .= "tbudmin=?,";
     $set .= "tbudmax=?,";
-    $set .= "form='advsrch'";
+    $set .= "form='$formname'";
     $insertTypes = 'sssdd';
-    $insertParams = [$insertTypes, $cat, $city, $pfor, $tbudmin, $tbudmax];
+    $insertParams = [$insertTypes, $cat, $city, $pfor, $budgetmin, $budgetmax];
 
     $save = "insert into research set $set";
 
     $GLOBALS['db']->insertIdPreparedStatement($save, $insertParams);
+
 
     if(!empty($keyword)) {
         $que.="and (prop_title like ? or location like ? or address like ?) ";
@@ -307,179 +114,38 @@ else if(isset($advsrch)) { // Advsrch widget sidebar
         $queryTypes.='s';
         $queryParams[] = "'%$keyword%'";
         $queryTypes.='s';
-
-        if(!empty($cat)) {
-            $que.="and category=? ";
-            $queryParams[] = $cat;
-            $queryTypes.='s';
-        }
-        if(!empty($pfor)) {
-            $que.="and prop_for=? ";
-            $queryParams[] = $pfor;
-            $queryTypes.='s';
-        }
-        if(!empty($bed)) {
-            $que.="and bedroom=? ";
-            $queryParams[] = $bed;
-            $queryTypes.='s';
-        }
-        if(!empty($bath)) {
-            $que.="and bathroom=? ";
-            $queryParams[] = $bath;
-            $queryTypes.='s';
-        }
-        if(!empty($min) && !empty($max)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $min;
-            $queryParams[] = $max;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        if(!empty($min) && empty($max)) {
-            $que.="and exp_price>=$min ";
-            $queryParams[] = $min;
-            $queryTypes.='d';
-        }
-        if(empty($min) && !empty($max)) {
-            $que.="and exp_price<=$max ";
-            $queryParams[] = $max;
-            $queryTypes.='d';
-        }
     }
-    else if(empty($keyword)&&!empty($cat)) {
-        $que.="and category=? ";
+    if(!empty($city)) {
+        $que.="and location like ? or address like ? ";
+        $queryParams[] = "'%$city%'";
+        $queryTypes.='s';
+        $queryParams[] = "'%$city%'";
+        $queryTypes.='s';
+    }
+    if(!empty($cat)) {
+        $que .= "and category=? ";
         $queryParams[] = $cat;
         $queryTypes.='s';
-        if(!empty($pfor)) {
-            $que.="and prop_for=? ";
-            $queryParams[] = $pfor;
-            $queryTypes.='s';
-        }
-        if(!empty($bed)) {
-            $que.="and bedroom=? ";
-            $queryParams[] = $bed;
-            $queryTypes.='s';
-        }
-        if(!empty($bath)) {
-            $que.="and bathroom=? ";
-            $queryParams[] = $bath;
-            $queryTypes.='s';
-        }
-        if(!empty($min) && !empty($max)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $min;
-            $queryParams[] = $max;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        if(!empty($min) && empty($max)) {
-            $que.="and exp_price>=? ";
-            $queryParams[] = $min;
-            $queryTypes.='d';
-        }
-        if(empty($min) && !empty($max)) {
-            $que.="and exp_price<=? ";
-            $queryParams[] = $max;
-            $queryTypes.='d';
-        }
     }
-    else if(empty($keyword)&&empty($cat)&&!empty($pfor)) {
+    if(!empty($pfor)) {
         $que.="and prop_for=? ";
-        if(!empty($bed)) {
-            $que.="and bedroom=? ";
-            $queryParams[] = $bed;
-            $queryTypes.='s';
-        }
-        if(!empty($bath)) {
-            $que.="and bathroom=? ";
-            $queryParams[] = $bath;
-            $queryTypes.='s';
-        }
-        if(!empty($min) && !empty($max)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $min;
-            $queryParams[] = $max;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        if(!empty($min) && empty($max)) {
-            $que.="and exp_price>=? ";
-            $queryParams[] = $min;
-            $queryTypes.='d';
-        }
-        if(empty($min) && !empty($max)) {
-            $que.="and exp_price<=? ";
-            $queryParams[] = $max;
-            $queryTypes.='d';
-        }
-    }
-    else if(empty($keyword)&&empty($cat)&&empty($pfor)&&!empty($bed)) {
-        $que.="and bedroom=? ";
-        $queryParams[] = $bed;
+        $queryParams[] = $pfor;
         $queryTypes.='s';
-        if(!empty($bath)) {
-            $que.="and bathroom=? ";
-            $queryParams[] = $bath;
-            $queryTypes.='s';
-        }
-        if(!empty($min) && !empty($max)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $min;
-            $queryParams[] = $max;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        if(!empty($min) && empty($max)) {
-            $que.="and exp_price>=? ";
-            $queryParams[] = $min;
-            $queryTypes.='d';
-        }
-        if(empty($min) && !empty($max)) {
-            $que.="and exp_price<=? ";
-            $queryParams[] = $max;
-            $queryTypes.='d';
-        }
     }
-    else if(empty($keyword)&&empty($cat)&&empty($pfor)&&empty($bed)&&!empty($bath)) {
-        $que.="and bathroom=? ";
-        $queryParams[] = $bath;
-        $queryTypes.='s';
-        if(!empty($min) && !empty($max)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $min;
-            $queryParams[] = $max;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        if(!empty($min) && empty($max)) {
-            $que.="and exp_price>=? ";
-            $queryParams[] = $min;
-            $queryTypes.='d';
-        }
-        if(empty($min) && !empty($max)) {
-            $que.="and exp_price<=? ";
-            $queryParams[] = $max;
-            $queryTypes.='d';
-        }
+    if(!empty($covered_area)) {
+        $que.="and covered_area>=? ";
+        $queryParams[] = $covered_area;
+        $queryTypes.='d';
     }
-    else if(empty($keyword)&&empty($cat)&&empty($pfor)&&empty($bed)&&empty($bath)&&!empty($min) || !empty($max)) {
-        if(!empty($min) && !empty($max)) {
-            $que .= "and exp_price between ? and ? ";
-            $queryParams[] = $min;
-            $queryParams[] = $max;
-            $queryTypes.='d';
-            $queryTypes.='d';
-        }
-        if(!empty($min) && empty($max)) {
-            $que.="and exp_price>=? ";
-            $queryParams[] = $min;
-            $queryTypes.='d';
-        }
-        if(empty($min) && !empty($max)) {
-            $que.="and exp_price<=? ";
-            $queryParams[] = $max;
-            $queryTypes.='d';
-        }
+    if(!empty($budgetmin)) {
+        $que .= "and exp_price>=?";
+        $queryParams[] = $budgetmin;
+        $queryTypes.='d';
+    }
+    if(!empty($budgetmax)) {
+        $que .= "and exp_price<=?";
+        $queryParams[] = $budgetmax;
+        $queryTypes.='d';
     }
 }
 else {

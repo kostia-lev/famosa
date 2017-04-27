@@ -1,20 +1,3 @@
-<?
-include "header.php";
-
-$pid=trim(addslashes($prop));
-		if($pid=='') {
-		   echo "<script>location.href='$siteurl/manage-your-list';</script>";
-		   header("Location: $siteurl/manage-your-list"); exit;
-		}
-$prop=$db->singlerec("select * from listings where randuniq='$pid'");
-		if($prop['id']=='') {
-			echo "<script>location.href='$siteurl/manage-your-list';</script>";
-			header("Location: $siteurl/manage-your-list"); exit;
-		}
-$agent=$db->singlerec("select * from register where email='".$prop['email']."'");
-$im=$db->singlerec("select * from listing_images where pid='".$prop['id']."' order by id limit 1");
-$agency=$db->singlerec("select * from general_setting where id='1'");
-?>
 <div class="container">
    <div class="col-md-12 col-sm-12 col-xs-12 market-place-head-bg mt20">
         <h1 class="blackhead"><? echo $prop['prop_title'] . " a " . strtok($prop['location'], ','); ?></h1>
@@ -27,20 +10,21 @@ $agency=$db->singlerec("select * from general_setting where id='1'");
        <div id="thumbcarousel" class="carousel slide" data-interval="false">
         <div id="carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="item active" data-toggle="modal" data-target="#preview<? echo $im['id'] ?>">
-                    <img src="<? echo $siteurl; ?>/images/prop/<? echo $im['image'] ?>" class="imge" />
+                <div class="item active" data-toggle="modal" data-target="#preview<? echo $prop['limid'] ?>">
+                    <img src="/images/prop/<? echo $prop['limimage'] ?>" class="imge" />
                 </div>
                 <!-- Modal -->
-                <div class="modal scale" id="preview<? echo $im['id'] ?>" role="dialog">
+                <div class="modal scale" id="preview<? echo $prop['limid'] ?>" role="dialog">
                     <div class="modal-dialog modal-img">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <img src="<? echo $siteurl; ?>/images/prop/<? echo $im['image'] ?>" class="imge" />
+                        <img src="<? echo $siteurl; ?>/images/prop/<? echo $prop['limimage'] ?>" class="imge" />
                     </div>
 
                   </div>
                 </div>
 				<?
+
 				$result=$db->get_all("select * from listing_images where pid='".$prop['id']."' order by id limit 1, 25");
                 if(count($result)>=1) {
 					foreach($result as $row) {
@@ -1158,14 +1142,14 @@ $agency=$db->singlerec("select * from general_setting where id='1'");
              Agente
          </div><!--col-md-12 col-sm-12 col-xs-12 property-news-head mt30-->
          <div class="col-md-12 col-sm-12 col-xs-12 brdr text-center">
-             <a href="<? echo $siteurl; ?>/agent-info/<? echo $agent['randuniq']; ?>/about" target="_blank"><img src="<? echo $siteurl; ?>/images/user/<? echo $agent['prof_image']; ?>" class="im_ag pdb10" /></a>
-             <p class="property-detail-page-agent-info-font"><? echo $agent['fullname']; ?></p>
-             <p class="property-detail-page-agent-info-font"><i class="fa fa-phone" aria-hidden="true"></i> <? echo $agent['mobile']; ?></p>
+             <a href="<? echo $siteurl; ?>/agent-info/<? echo $prop['rranduniq']; ?>/about" target="_blank"><img src="<? echo $siteurl; ?>/images/user/<? echo $prop['rprof_image']; ?>" class="im_ag pdb10" /></a>
+             <p class="property-detail-page-agent-info-font"><? echo $prop['rfullname']; ?></p>
+             <p class="property-detail-page-agent-info-font"><i class="fa fa-phone" aria-hidden="true"></i> <? echo $prop['rmobile']; ?></p>
 			 <?
-			 if($agent['email']!=($_SESSION['usr']?? null)) {
-					$_SESSION['tomail']=$agent['email'];
-                    $_SESSION['agent_randuniq']=$agent['randuniq'];
-                    $_SESSION['prop_randuniq']=$prop['randuniq'];
+			 if($prop['remail']!=($_SESSION['usr']?? null)) {
+					$_SESSION['tomail']=$prop['remail'];
+                    $_SESSION['agent_randuniq']=$prop['rranduniq'];
+                    $_SESSION['prop_randuniq']=$prop['rranduniq'];
 					echo '<a href="javascript:;" data-toggle="modal" data-target="#contact-agent"><input type="button" class="btn btn-agent" value="Contatta agente"></a><br><br>';
 			}
 			echo "<hr>Riferimento codice immobile:<br><b>" . $prop['prop_ref'] . "</b>";
@@ -1264,69 +1248,69 @@ $agency=$db->singlerec("select * from general_setting where id='1'");
                               <div class="col-sm-6">
                                   <select name="minp" class="form-control form-ctrl-height">
                                       <option value="">Prezzo min.</option>
-                                      <option value="50000" <? if($minp==50000) echo "selected" ?>>&euro; 50.000</option>
-                                      <option value="100000" <? if($minp==100000) echo "selected" ?>>&euro; 100.000</option>
-                                      <option value="150000" <? if($minp==150000) echo "selected" ?>>&euro; 150.000</option>
-                                      <option value="200000" <? if($minp==200000) echo "selected" ?>>&euro; 200.000</option>
-                                      <option value="250000" <? if($minp==250000) echo "selected" ?>>&euro; 250.000</option>
-                                      <option value="300000" <? if($minp==300000) echo "selected" ?>>&euro; 300.000</option>
-                                      <option value="350000" <? if($minp==350000) echo "selected" ?>>&euro; 350.000</option>
-                                      <option value="400000" <? if($minp==400000) echo "selected" ?>>&euro; 400.000</option>
-                                      <option value="450000" <? if($minp==450000) echo "selected" ?>>&euro; 450.000</option>
-                                      <option value="500000" <? if($minp==500000) echo "selected" ?>>&euro; 500.000</option>
-                                      <option value="550000" <? if($minp==550000) echo "selected" ?>>&euro; 550.000</option>
-                                      <option value="600000" <? if($minp==600000) echo "selected" ?>>&euro; 600.000</option>
-                                      <option value="650000" <? if($minp==650000) echo "selected" ?>>&euro; 650.000</option>
-                                      <option value="700000" <? if($minp==700000) echo "selected" ?>>&euro; 700.000</option>
-                                      <option value="750000" <? if($minp==750000) echo "selected" ?>>&euro; 750.000</option>
-                                      <option value="800000" <? if($minp==800000) echo "selected" ?>>&euro; 800.000</option>
-                                      <option value="850000" <? if($minp==850000) echo "selected" ?>>&euro; 850.000</option>
-                                      <option value="900000" <? if($minp==900000) echo "selected" ?>>&euro; 900.000</option>
-                                      <option value="950000" <? if($minp==950000) echo "selected" ?>>&euro; 950.000</option>
-                                      <option value="1000000" <? if($minp==1000000) echo "selected" ?>>&euro; 1.000.000</option>
-                                      <option value="1250000" <? if($minp==1250000) echo "selected" ?>>&euro; 1.250.000</option>
-                                      <option value="1500000" <? if($minp==1500000) echo "selected" ?>>&euro; 1.500.000</option>
-                                      <option value="1750000" <? if($minp==1750000) echo "selected" ?>>&euro; 1.750.000</option>
-                                      <option value="2000000" <? if($minp==2000000) echo "selected" ?>>&euro; 2.000.000</option>
-                                      <option value="2500000" <? if($minp==2500000) echo "selected" ?>>&euro; 2.500.000</option>
-                                      <option value="3000000" <? if($minp==3000000) echo "selected" ?>>&euro; 3.000.000</option>
-                                      <option value="4000000" <? if($minp==4000000) echo "selected" ?>>&euro; 4.000.000</option>
-                                      <option value="5000000" <? if($minp==5000000) echo "selected" ?>>&euro; 5.000.000</option>
-                                      <option value="10000000" <? if($minp==10000000) echo "selected" ?>>&euro; 10.000.000</option>
+                                      <option value="50000" <? if($budgetmin==50000) echo "selected" ?>>&euro; 50.000</option>
+                                      <option value="100000" <? if($budgetmin==100000) echo "selected" ?>>&euro; 100.000</option>
+                                      <option value="150000" <? if($budgetmin==150000) echo "selected" ?>>&euro; 150.000</option>
+                                      <option value="200000" <? if($budgetmin==200000) echo "selected" ?>>&euro; 200.000</option>
+                                      <option value="250000" <? if($budgetmin==250000) echo "selected" ?>>&euro; 250.000</option>
+                                      <option value="300000" <? if($budgetmin==300000) echo "selected" ?>>&euro; 300.000</option>
+                                      <option value="350000" <? if($budgetmin==350000) echo "selected" ?>>&euro; 350.000</option>
+                                      <option value="400000" <? if($budgetmin==400000) echo "selected" ?>>&euro; 400.000</option>
+                                      <option value="450000" <? if($budgetmin==450000) echo "selected" ?>>&euro; 450.000</option>
+                                      <option value="500000" <? if($budgetmin==500000) echo "selected" ?>>&euro; 500.000</option>
+                                      <option value="550000" <? if($budgetmin==550000) echo "selected" ?>>&euro; 550.000</option>
+                                      <option value="600000" <? if($budgetmin==600000) echo "selected" ?>>&euro; 600.000</option>
+                                      <option value="650000" <? if($budgetmin==650000) echo "selected" ?>>&euro; 650.000</option>
+                                      <option value="700000" <? if($budgetmin==700000) echo "selected" ?>>&euro; 700.000</option>
+                                      <option value="750000" <? if($budgetmin==750000) echo "selected" ?>>&euro; 750.000</option>
+                                      <option value="800000" <? if($budgetmin==800000) echo "selected" ?>>&euro; 800.000</option>
+                                      <option value="850000" <? if($budgetmin==850000) echo "selected" ?>>&euro; 850.000</option>
+                                      <option value="900000" <? if($budgetmin==900000) echo "selected" ?>>&euro; 900.000</option>
+                                      <option value="950000" <? if($budgetmin==950000) echo "selected" ?>>&euro; 950.000</option>
+                                      <option value="1000000" <? if($budgetmin==1000000) echo "selected" ?>>&euro; 1.000.000</option>
+                                      <option value="1250000" <? if($budgetmin==1250000) echo "selected" ?>>&euro; 1.250.000</option>
+                                      <option value="1500000" <? if($budgetmin==1500000) echo "selected" ?>>&euro; 1.500.000</option>
+                                      <option value="1750000" <? if($budgetmin==1750000) echo "selected" ?>>&euro; 1.750.000</option>
+                                      <option value="2000000" <? if($budgetmin==2000000) echo "selected" ?>>&euro; 2.000.000</option>
+                                      <option value="2500000" <? if($budgetmin==2500000) echo "selected" ?>>&euro; 2.500.000</option>
+                                      <option value="3000000" <? if($budgetmin==3000000) echo "selected" ?>>&euro; 3.000.000</option>
+                                      <option value="4000000" <? if($budgetmin==4000000) echo "selected" ?>>&euro; 4.000.000</option>
+                                      <option value="5000000" <? if($budgetmin==5000000) echo "selected" ?>>&euro; 5.000.000</option>
+                                      <option value="10000000" <? if($budgetmin==10000000) echo "selected" ?>>&euro; 10.000.000</option>
                                   </select>
                               </div>
                               <div class="col-sm-6">
                                   <select name="maxp" class="form-control form-ctrl-height">
                                       <option value="">Prezzo max.</option>
-                                      <option value="50000"  <? if($maxp==50000) echo "selected"; ?>>&euro; 50.000</option>
-                                      <option value="100000" <? if($maxp==100000) echo "selected"; ?>>&euro; 100.000</option>
-                                      <option value="150000" <? if($maxp==150000) echo "selected"; ?>>&euro; 150.000</option>
-                                      <option value="200000" <? if($maxp==200000) echo "selected"; ?>>&euro; 200.000</option>
-                                      <option value="250000" <? if($maxp==250000) echo "selected"; ?>>&euro; 250.000</option>
-                                      <option value="300000" <? if($maxp==300000) echo "selected"; ?>>&euro; 300.000</option>
-                                      <option value="350000" <? if($maxp==350000) echo "selected"; ?>>&euro; 350.000</option>
-                                      <option value="400000" <? if($maxp==400000) echo "selected"; ?>>&euro; 400.000</option>
-                                      <option value="450000" <? if($maxp==450000) echo "selected"; ?>>&euro; 450.000</option>
-                                      <option value="500000" <? if($maxp==500000) echo "selected"; ?>>&euro; 500.000</option>
-                                      <option value="550000" <? if($maxp==550000) echo "selected"; ?>>&euro; 550.000</option>
-                                      <option value="600000" <? if($maxp==600000) echo "selected"; ?>>&euro; 600.000</option>
-                                      <option value="650000" <? if($maxp==650000) echo "selected"; ?>>&euro; 650.000</option>
-                                      <option value="700000" <? if($maxp==700000) echo "selected"; ?>>&euro; 700.000</option>
-                                      <option value="750000" <? if($maxp==750000) echo "selected"; ?>>&euro; 750.000</option>
-                                      <option value="800000" <? if($maxp==800000) echo "selected"; ?>>&euro; 800.000</option>
-                                      <option value="850000" <? if($maxp==850000) echo "selected"; ?>>&euro; 850.000</option>
-                                      <option value="900000" <? if($maxp==900000) echo "selected"; ?>>&euro; 900.000</option>
-                                      <option value="950000" <? if($maxp==950000) echo "selected"; ?>>&euro; 950.000</option>
-                                      <option value="1000000" <? if($maxp==1000000) echo "selected"; ?>>&euro; 1.000.000</option>
-                                      <option value="1250000" <? if($maxp==1250000) echo "selected"; ?>>&euro; 1.250.000</option>
-                                      <option value="1500000" <? if($maxp==1500000) echo "selected"; ?>>&euro; 1.500.000</option>
-                                      <option value="1750000" <? if($maxp==1750000) echo "selected"; ?>>&euro; 1.750.000</option>
-                                      <option value="2000000" <? if($maxp==2000000) echo "selected"; ?>>&euro; 2.000.000</option>
-                                      <option value="2500000" <? if($maxp==2500000) echo "selected"; ?>>&euro; 2.500.000</option>
-                                      <option value="3000000" <? if($maxp==3000000) echo "selected"; ?>>&euro; 3.000.000</option>
-                                      <option value="4000000" <? if($maxp==4000000) echo "selected"; ?>>&euro; 4.000.000</option>
-                                      <option value="5000000" <? if($maxp==5000000) echo "selected"; ?>>&euro; 5.000.000</option>
-                                      <option value="10000000" <? if($maxp==10000000) echo "selected"; ?>>&euro; 10.000.000</option>
+                                      <option value="50000"  <? if($budgetmax==50000) echo "selected"; ?>>&euro; 50.000</option>
+                                      <option value="100000" <? if($budgetmax==100000) echo "selected"; ?>>&euro; 100.000</option>
+                                      <option value="150000" <? if($budgetmax==150000) echo "selected"; ?>>&euro; 150.000</option>
+                                      <option value="200000" <? if($budgetmax==200000) echo "selected"; ?>>&euro; 200.000</option>
+                                      <option value="250000" <? if($budgetmax==250000) echo "selected"; ?>>&euro; 250.000</option>
+                                      <option value="300000" <? if($budgetmax==300000) echo "selected"; ?>>&euro; 300.000</option>
+                                      <option value="350000" <? if($budgetmax==350000) echo "selected"; ?>>&euro; 350.000</option>
+                                      <option value="400000" <? if($budgetmax==400000) echo "selected"; ?>>&euro; 400.000</option>
+                                      <option value="450000" <? if($budgetmax==450000) echo "selected"; ?>>&euro; 450.000</option>
+                                      <option value="500000" <? if($budgetmax==500000) echo "selected"; ?>>&euro; 500.000</option>
+                                      <option value="550000" <? if($budgetmax==550000) echo "selected"; ?>>&euro; 550.000</option>
+                                      <option value="600000" <? if($budgetmax==600000) echo "selected"; ?>>&euro; 600.000</option>
+                                      <option value="650000" <? if($budgetmax==650000) echo "selected"; ?>>&euro; 650.000</option>
+                                      <option value="700000" <? if($budgetmax==700000) echo "selected"; ?>>&euro; 700.000</option>
+                                      <option value="750000" <? if($budgetmax==750000) echo "selected"; ?>>&euro; 750.000</option>
+                                      <option value="800000" <? if($budgetmax==800000) echo "selected"; ?>>&euro; 800.000</option>
+                                      <option value="850000" <? if($budgetmax==850000) echo "selected"; ?>>&euro; 850.000</option>
+                                      <option value="900000" <? if($budgetmax==900000) echo "selected"; ?>>&euro; 900.000</option>
+                                      <option value="950000" <? if($budgetmax==950000) echo "selected"; ?>>&euro; 950.000</option>
+                                      <option value="1000000" <? if($budgetmax==1000000) echo "selected"; ?>>&euro; 1.000.000</option>
+                                      <option value="1250000" <? if($budgetmax==1250000) echo "selected"; ?>>&euro; 1.250.000</option>
+                                      <option value="1500000" <? if($budgetmax==1500000) echo "selected"; ?>>&euro; 1.500.000</option>
+                                      <option value="1750000" <? if($budgetmax==1750000) echo "selected"; ?>>&euro; 1.750.000</option>
+                                      <option value="2000000" <? if($budgetmax==2000000) echo "selected"; ?>>&euro; 2.000.000</option>
+                                      <option value="2500000" <? if($budgetmax==2500000) echo "selected"; ?>>&euro; 2.500.000</option>
+                                      <option value="3000000" <? if($budgetmax==3000000) echo "selected"; ?>>&euro; 3.000.000</option>
+                                      <option value="4000000" <? if($budgetmax==4000000) echo "selected"; ?>>&euro; 4.000.000</option>
+                                      <option value="5000000" <? if($budgetmax==5000000) echo "selected"; ?>>&euro; 5.000.000</option>
+                                      <option value="10000000" <? if($budgetmax==10000000) echo "selected"; ?>>&euro; 10.000.000</option>
                                   </select>
                               </div>
                           </div>
@@ -1359,16 +1343,17 @@ $agency=$db->singlerec("select * from general_setting where id='1'");
 
        <div style="padding-left:0px;">
 			<?
-			$result=$db->get_all("select * from listings where post_sts=1 and category='".$prop['category']."' and randuniq!='$pid' order by id desc limit 4");
+			$result=$db->get_all("select l.*, (select `image` from listing_images where pid = l.id limit 1) as rprimimage 
+from listings l where l.post_sts=1 and l.category='".$prop['category']."' and randuniq!='$pid' order by id desc limit 4");
 			if(count($result)>=1) {
 				foreach($result as $key => $rp) {
-					$rpim=$db->singlerec("select * from listing_images where pid='".$rp['id']."'");
+					//$rpim=$db->singlerec("select * from listing_images where pid='".$rp['id']."'");
 
 			?>
             <div class="col-md-3 col-sm-6 col-xs-12 mt30">
                   <div class="carshop-item brdr-2">
                       <div class="photo">
-                          <a href="<? echo $siteurl; ?>/listing/<? echo $rp['randuniq']; ?>/<? echo $rp['slug']; ?>"><img src="<? echo $siteurl; ?>/images/prop/230_144/<? echo $rpim['image']; ?>" class="img-responsive" alt="a" /></a>
+                          <a href="<? echo $siteurl; ?>/listing/<? echo $rp['randuniq']; ?>/<? echo $rp['slug']; ?>"><img src="<? echo $siteurl; ?>/images/prop/230_144/<? echo $rp['rprimimage']; ?>" class="img-responsive" alt="a" /></a>
                       </div><!--photo-->
                          <div class="info row">                                    
                               <div class="col-md-12">

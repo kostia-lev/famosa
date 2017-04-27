@@ -23,7 +23,7 @@ $GLOBALS['drop'] = $drop = new dropdown;
 $GLOBALS['imgObj'] = $imgobj = new images;
 $GLOBALS['notifyObj'] = $notifyobj = new notification;
 
-$GetSite = $db->singlerec("select * from general_setting");
+$GLOBALS['GetSite'] = $GetSite = $db->singlerec("select * from general_setting");
 $GLOBALS['sitelogo'] = $sitelogo = $GetSite['img'];
 $GLOBALS['sitetitle'] = $sitetitle = ucwords($GetSite['website_title']);
 $GLOBALS['siteurl'] = $siteurl = $GetSite['website_url'];
