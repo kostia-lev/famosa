@@ -175,13 +175,14 @@ class PropertyPagesController
 
     public function propertyDetailAction(Request $request, Application $app ){
         $prop = $request->get('prop');
-        require_once 'header.php';
-
         $pid=trim(addslashes($prop));
-        if($pid=='') {
-            echo "<script>location.href='/manage-your-list';</script>";
+
+        if(empty($pid)) {
             header("Location: /manage-your-list"); exit;
         }
+
+        require_once 'header.php';
+
         $prop = $GLOBALS['db']->singlerec(
              "select l.*,
               lim.image as limimage, lim.id as limid,
@@ -194,15 +195,17 @@ class PropertyPagesController
               left join register r on r.email = l.email
               where l.randuniq='$pid' limit 1");
 
-        //var_dump(array_keys($prop));exit;
+        $listing_images = $GLOBALS['db']->get_all("select * from listing_images where pid='".
+            $prop['id']."' order by id limit 25");
+
+        $linked_property = $GLOBALS['db']->get_all("select l.*, (select `image` from listing_images where pid = l.id limit 1) as rprimimage 
+            from listings l where l.post_sts=1 and l.category='".$prop['category']."' and randuniq!='$pid' order by id desc limit 4");
 
         if($prop['id']=='') {
             echo "<script>location.href='/manage-your-list';</script>";
             header("Location: /manage-your-list");
         }
 
-        //$agent = $GLOBALS['db']->singlerec("select * from register where email='".$prop['email']."'");
-        //$im = $GLOBALS['db']->singlerec("select * from listing_images where pid='".$prop['id']."' order by id limit 1");
         $agency = $GLOBALS['GetSite'];
 
         require_once 'property-detail.php';
