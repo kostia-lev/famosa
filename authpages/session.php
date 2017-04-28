@@ -8,7 +8,8 @@ if($_POST['login']) {
    if($email!='' && $pass!='') {
 	   //$check=$db->singlerec("select * from register where email='$email' and password='$pass'");
        $check = $GLOBALS['db']->
-       getAllinsertIdPreparedStatement("select * from register where email=? and encr_password=?", 'ss', [$email, md5($pass)]);
+       getAllinsertIdPreparedStatement("select * from register where email=? and encr_password=?", 'ss',
+           [$email, password_hash($pass, PASSWORD_DEFAULT)]);
 
        if($check) {
 			if($check[0]['active']==0) {

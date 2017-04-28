@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $app = new Silex\Application();
 
@@ -22,12 +22,12 @@ $app->get('/contatti', 'InfoPages\\InfoPagesController::contattiAction');
 $app->get('/chi-siamo', 'InfoPages\\InfoPagesController::chisiamoAction');
 $app->get('/lavora-con-noi', 'InfoPages\\InfoPagesController::lavoraconnoiAction');
 
-$app->get('/dashboard', function() {
+$app->get('/dashboard', function () {
     include('dashboard.php');
     return '';
 });
 
-$app->post('/post-ad', function() {
+$app->post('/post-ad', function () {
     include('post-ad.php');
     return '';
 });
