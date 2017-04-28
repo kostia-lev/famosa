@@ -27,8 +27,7 @@ include "admin/AMframe/config.php";
 	<![endif]-->
 	<link rel="icon" href="<? echo $siteurl; ?>/favicon.ico">
 	<script type="text/javascript" src="<? echo $siteurl; ?>/assets/js/jquery.min.js"></script>
-	<script type="text/javascript" src="<? echo $siteurl; ?>/assets/js/bootstrap.js"></script>
-	<script src="https://js.stripe.com/v2/" type="text/javascript"></script>
+	<script type="text/javascript" src="<? echo $siteurl; ?>/assets/js/bootstrap.min.js"></script>
     <script src="<? echo $siteurl; ?>/assets/js/sweetalert.min.js"></script>
 	<script src="<? echo $siteurl; ?>/assets/js/jquery.validate.min.js"></script>
 	<script src="<? echo $siteurl; ?>/assets/js/image-prv.js"></script>
