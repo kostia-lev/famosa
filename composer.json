@@ -4,7 +4,9 @@
     },
     "autoload": {
         "psr-4": {"InfoPages\\": "infopages/",
-            "PropertyPages\\": "propertypages/"}
+            "PropertyPages\\": "propertypages/",
+            "AuthPages\\": "authpages/"
+        }
     }
 
 }

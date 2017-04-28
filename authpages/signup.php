@@ -1,5 +1,5 @@
 <?
-include "admin/AMframe/config.php";
+//include "admin/AMframe/config.php";
 
 if(isset($_POST['signup'])) {
 		$fullname=trim(addslashes($_POST['fullname']));
@@ -7,7 +7,7 @@ if(isset($_POST['signup'])) {
 		$role=trim(addslashes($_POST['role']));
 		$email=trim(addslashes($_POST['email']));
 		$mobile=trim(addslashes($_POST['mobile']));
-		$pass=trim(addslashes($_POST['password']));
+		$pass=trim($_POST['password']);
 		$cpass=trim(addslashes($_POST['cpassword']));
 		$epass=md5($pass);
 		$time=time();
