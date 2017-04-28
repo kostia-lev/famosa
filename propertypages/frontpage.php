@@ -30,7 +30,7 @@
                             </select>
                         </div><!--col-md-3 col-sm-12 col-xs-12 quick-search-->
                         <div class="banner-group-1 banner-group-brdr-2 mt20">
-                            <input id="addr" onFocus="geolocate()" type="text" name="city" class="form-control banner-group-brdr" placeholder="Inserisci una citt&aacute; o una localit&aacute;">
+                            <input id="addr" onFocus="if(typeof geolocate !== 'undefined') geolocate()" type="text" name="city" class="form-control banner-group-brdr" placeholder="Inserisci una citt&aacute; o una localit&aacute;">
                         </div><!--banner-group banner-group-brdr-2-->
                         <div class="banner-group mt20" >
                             <select name="pfor" class="form-control banner-group-brdr">

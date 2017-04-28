@@ -14,11 +14,8 @@ include "admin/AMframe/config.php";
 
     <? include "seotags.php"; ?>
 
-	<link rel="stylesheet" type="text/css" href="<? echo $siteurl; ?>/assets/css/bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="<? echo $siteurl; ?>/assets/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="<? echo $siteurl; ?>/assets/css/stylesheet.css" />
-	<link rel="stylesheet" type="text/css" href="<? echo $siteurl; ?>/assets/css/bootstrap-select.min.css" />
-	<link rel="stylesheet" href="<? echo $siteurl; ?>/assets/css/sweetalert.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,600,300italic,400italic,300">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500&subset=latin-ext' rel='stylesheet' type='text/css'>
@@ -28,7 +25,6 @@ include "admin/AMframe/config.php";
 	<link rel="icon" href="<? echo $siteurl; ?>/favicon.ico">
 	<script type="text/javascript" src="<? echo $siteurl; ?>/assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<? echo $siteurl; ?>/assets/js/bootstrap.min.js"></script>
-    <script src="<? echo $siteurl; ?>/assets/js/sweetalert.min.js"></script>
 	<script src="<? echo $siteurl; ?>/assets/js/jquery.validate.min.js"></script>
 	<script src="<? echo $siteurl; ?>/assets/js/image-prv.js"></script>
 

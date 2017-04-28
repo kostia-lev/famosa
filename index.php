@@ -31,5 +31,9 @@ $app->post('/post-ad', function () {
     include('post-ad.php');
     return '';
 });
+$app->get('/post-ad', function () {
+    include('post-ad.php');
+    return '';
+});
 
 $app->run();
