@@ -1,0 +1,2 @@
+--1) removed password field
+-- ALTER TABLE remax.register DROP password;

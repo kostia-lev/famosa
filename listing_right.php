@@ -5,6 +5,8 @@ if(__FILE__ == $_SERVER['SCRIPT_FILENAME'])
 }
 $categ = $categ?? null;
 $bed = $bed?? null;
+$bath = $bath?? null;
+$pfor = $pfor?? null;
 $budgetmin = $budgetmin?? null;
 $budgetmax = $budgetmax?? null;
 ?>

@@ -28,7 +28,7 @@ if (isset($_POST['signup'])) {
         $set .= "role=?,";
         $set .= "email=?,";
         $set .= "mobile=?,";
-        $set .= "password=?,";
+        //$set .= "password=?,";
         $set .= "encr_password=?,";
         $set .= "prof_image='noimage.jpg',";
         $set .= "ip_addr='$ip',";
@@ -40,8 +40,8 @@ if (isset($_POST['signup'])) {
         $set .= "created_at='$time',";
         $set .= "updated_at='$time'";
 
-        $insertTypes = 'ssssss';
-        $insertParams = [$insertTypes, $fullname, $role, $email, $mobile, '', $epass];
+        $insertTypes = 'sssss';
+        $insertParams = [$insertTypes, $fullname, $role, $email, $mobile, $epass];
 
         $out = $GLOBALS['db']->insertIdPreparedStatement("insert into register set $set", $insertParams);
 
