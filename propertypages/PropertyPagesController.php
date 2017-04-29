@@ -114,10 +114,6 @@ class PropertyPagesController
                 $queryParams[] = (int)$bath;
                 $queryTypes.='d';
             }
-
-            /*
-            var_dump($queryParams);
-            exit($que);*/
         }
         $que .= " order by id desc";
 
@@ -137,9 +133,6 @@ class PropertyPagesController
         require_once "pagination.php";
         $perpage=12;
         $limit=limitation($perpage);
-        //require_once "srch_algorithm.php";
-        /*$queryParams[] = $types;
-        $queryTypes.='s';*/
 
         $output = $GLOBALS['db']->getAllPropertyByCategory('s', [$request->get('cat')]);
         $result = $output['result'];
@@ -183,7 +176,7 @@ class PropertyPagesController
 
         require_once 'header.php';
 
-        $prop = $GLOBALS['db']->singlerec(
+        $prop = $GLOBALS['db']->getAllinsertIdPreparedStatement(
              "select l.*,
               lim.image as limimage, lim.id as limid,
               
@@ -193,16 +186,14 @@ class PropertyPagesController
               from listings l 
               left join listing_images lim on lim.pid = l.id
               left join register r on r.email = l.email
-              where l.randuniq='$pid' limit 1");
+              where l.randuniq=? limit 1", 's', [$pid])[0];
 
-        $listing_images = $GLOBALS['db']->get_all("select * from listing_images where pid='".
-            $prop['id']."' order by id limit 25");
+        $listing_images = $GLOBALS['db']->getAllinsertIdPreparedStatement("select * from listing_images where pid=? order by id limit 25", 's', [$prop['id']]);
 
-        $linked_property = $GLOBALS['db']->get_all("select l.*, (select `image` from listing_images where pid = l.id limit 1) as rprimimage 
-            from listings l where l.post_sts=1 and l.category='".$prop['category']."' and randuniq!='$pid' order by id desc limit 4");
+        $linked_property = $GLOBALS['db']->getAllinsertIdPreparedStatement("select l.*, (select `image` from listing_images where pid = l.id limit 1) as rprimimage 
+            from listings l where l.post_sts=1 and l.category=? and randuniq!=? order by id desc limit 4", 'ss', [$prop['category'], $pid]);
 
         if($prop['id']=='') {
-            echo "<script>location.href='/manage-your-list';</script>";
             header("Location: /manage-your-list");
         }
 

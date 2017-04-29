@@ -35,6 +35,7 @@ include "mapapi.php";*/
 			}
 			else {
 				foreach($result as $row) {
+				    //@todo it should be join
 					$im=$GLOBALS['db']->singlerec("select * from listing_images where pid='".$row['id']."'");
 			?>
         <div class="col-md-4 col-sm-6 col-xs-12 mt20  market-place-pddng">
