@@ -243,7 +243,7 @@
                 //Radius change event
                 $('input[name="activmap_radius"]').on('change', function(){
                     s.radius = $(this).val();
-                    $('input[name="marker_type[]"], select[name="marker_type[]"]"]').each(function(){
+                    $('input[name="marker_type[]"], select[name="marker_type[]"]').each(function(){
                         _update_places_tag($(this));
                     });
                     _update_map();
