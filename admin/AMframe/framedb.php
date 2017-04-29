@@ -35,8 +35,7 @@ class database{
 			$dbuser  = "alessi74_rfamosa";
 			$dbpass  = "ziLgAL1yQUoZ";
 			$dbname  = "alessi74_rfamosa45";
-			$dbh = mysqli_connect($host,$dbuser,$dbpass);
-			mysqli_select_db($dbname);
+            $this->dbh = mysqli_connect($host,$dbuser,$dbpass, $dbname);
 
 			return $dbh;*/
 			
@@ -125,7 +124,30 @@ class database{
 
     function executeGetResultFetchAll(mysqli_stmt $preparedQuery):array{
         $preparedQuery->execute();
-        return $preparedQuery->get_result()->fetch_all(MYSQLI_ASSOC);
+        $meta = $preparedQuery->result_metadata();
+        $i = 0;
+
+        $columns = [];
+        while ($field = $meta->fetch_field()) {
+            $columns[] = $field->name;
+            $var = $i;
+            $$var = null;
+            $query_data[$var] = &$$var;
+            $i++;
+        }
+
+        $return = array();
+
+        call_user_func_array(array($preparedQuery,'bind_result'), $query_data);
+        while ($preparedQuery->fetch()) {
+            $tmp = [];
+            for ($i=0; $i<count($query_data); $i++) {
+                $tmp[$columns[$i]] = $query_data[$i] ;
+            }
+            $return[] = $tmp;
+        }
+
+        return $return;
     }
 
     function getAllPropertySql():string{
